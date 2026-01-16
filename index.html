@@ -26,6 +26,13 @@
       .energy-glow {
         box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
       }
+      @keyframes slow-zoom {
+        from { transform: scale(1); }
+        to { transform: scale(1.1); }
+      }
+      .animate-slow-zoom {
+        animation: slow-zoom 20s infinite alternate ease-in-out;
+      }
     </style>
   <script type="importmap">
 {

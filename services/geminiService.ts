@@ -1,7 +1,16 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Sécurité pour éviter l'écran blanc sur certains environnements de déploiement
+const getApiKey = () => {
+  try {
+    return process.env.API_KEY || "";
+  } catch (e) {
+    return "";
+  }
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 export const chatWithJeanFrancois = async (message: string, history: any[] = []) => {
   const model = 'gemini-3-flash-preview';
@@ -11,6 +20,7 @@ export const chatWithJeanFrancois = async (message: string, history: any[] = [])
     Ton ton est calme, spirituel mais humble. Tu ne te substitues jamais à un médecin. 
     Tu expliques que ton travail consiste à rééquilibrer les flux d'énergie (chakras, aura).
     Tu es capable de répondre aux questions sur le magnétisme, les soins à distance et le bien-être général.
+    Tu es spécialisé dans le soulagement des maux physiques tels que le zona, l'eczéma, les douleurs dentaires et les hémorroïdes.
     Tes réponses doivent être chaleureuses et en français.
   `;
 
@@ -31,7 +41,8 @@ export const analyzeHealingRequest = async (description: string, imageData?: str
   
   const contents: any[] = [
     { text: `Analyse cette demande de soin énergétique de manière empathique : ${description}. 
-    Explique comment Jean-François va travailler sur ce problème spécifiquement (par exemple : nettoyage des nœuds énergétiques, harmonisation du plexus solaire, etc). 
+    Si la demande concerne un zona, de l'eczéma, une douleur dentaire ou des hémorroïdes, explique comment ton magnétisme peut "couper le feu" ou apaiser l'inflammation.
+    Explique comment Jean-François va travailler sur ce problème spécifiquement (par exemple : nettoyage des nœuds énergétiques, harmonisation du plexus solaire, apaisement cutané, etc). 
     Garde un ton rassurant.` }
   ];
 

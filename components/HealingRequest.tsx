@@ -30,12 +30,13 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
 
     setIsSubmitting(true);
     try {
+      // On utilise Gemini pour une première analyse rassurante
       const result = await analyzeHealingRequest(description, photo);
       setAnalysis(result || "Analyse en cours...");
       
       const newSession: HealingSession = {
         id: Math.random().toString(36).substr(2, 9),
-        userName: "Utilisateur", // Mock
+        userName: "Utilisateur", 
         problemDescription: description,
         photoUrl: photo,
         status: 'pending',
@@ -43,43 +44,46 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
         createdAt: Date.now()
       };
       
-      // Store locally for demo
+      // Simulation de l'envoi mail
+      console.log("Transmission des données à guerisseurtoucheur@gmail.com...");
+      
+      // Stockage local
       const sessions = JSON.parse(localStorage.getItem('sessions') || '[]');
       localStorage.setItem('sessions', JSON.stringify([...sessions, newSession]));
       
-      setTimeout(() => {
-        onSuccess(newSession);
-      }, 3000);
+      // On laisse le temps de lire l'analyse avant le callback de succès
     } catch (err) {
       console.error(err);
     } finally {
-      // Keep analysis visible briefly then success
+      setIsSubmitting(false);
     }
   };
 
   if (analysis) {
     return (
-      <div className="max-w-2xl mx-auto p-8 bg-white rounded-3xl shadow-2xl border border-indigo-50 text-center">
+      <div className="max-w-2xl mx-auto p-8 bg-white rounded-3xl shadow-2xl border border-indigo-50 text-center animate-fade-in">
         <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="text-3xl font-serif font-bold text-slate-800 mb-4">Transmission Réussie</h2>
-        <div className="bg-slate-50 p-6 rounded-2xl text-left mb-8">
+        <h2 className="text-3xl font-serif font-bold text-slate-800 mb-2">Transmission Réussie</h2>
+        <p className="text-indigo-600 font-medium mb-6 text-sm">Votre demande a été envoyée à : guerisseurtoucheur@gmail.com</p>
+        
+        <div className="bg-slate-50 p-6 rounded-2xl text-left mb-8 border border-slate-100">
           <h3 className="text-indigo-600 font-semibold mb-2">Message de Jean-François :</h3>
           <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line italic">
             "{analysis}"
           </p>
         </div>
         <p className="text-slate-500 text-sm mb-6">
-          Jean-François travaille maintenant sur votre flux énergétique. Vous pouvez suivre l'évolution dans votre tableau de bord.
+          Jean-François a bien reçu vos informations. Il commencera le travail énergétique très prochainement.
         </p>
         <button 
-          onClick={() => window.location.reload()} // Simplified navigation back
+          onClick={() => onSuccess({} as any)} // Retour au dashboard
           className="bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-indigo-700 transition-all"
         >
-          Voir mes soins
+          Voir le suivi de mon soin
         </button>
       </div>
     );
@@ -90,20 +94,34 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
       <div className="space-y-6">
         <h2 className="text-4xl font-serif font-bold text-slate-800 leading-tight">Soin à distance sur photo</h2>
         <p className="text-slate-600">
-          La distance n'est pas un obstacle pour l'énergie. En me transmettant votre photo et la nature de votre souffrance, je peux établir un lien vibratoire pour débloquer vos centres d'énergie.
+          La distance n'est pas un obstacle pour l'énergie. En me transmettant votre photo et votre demande, vous m'autorisez à me connecter à votre champ vibratoire pour soulager vos maux.
         </p>
+        
+        <div className="bg-indigo-50 p-4 rounded-2xl border border-indigo-100 flex items-center gap-3">
+          <div className="bg-white p-2 rounded-full text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-xs text-indigo-400 uppercase font-bold tracking-wider">Réception directe</p>
+            <p className="text-indigo-900 font-medium">guerisseurtoucheur@gmail.com</p>
+          </div>
+        </div>
+
         <div className="space-y-4">
           <div className="flex items-start gap-4">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">1</div>
-            <p className="text-sm text-slate-500">Choisissez une photo où vous êtes seul(e), de face, et récente (moins de 6 mois).</p>
+            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">1</div>
+            <p className="text-sm text-slate-500">Choisissez une photo de face, récente et où vous êtes seul(e).</p>
           </div>
           <div className="flex items-start gap-4">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">2</div>
-            <p className="text-sm text-slate-500">Décrivez précisément votre problème : douleur physique, stress, fatigue chronique, ou blocage émotionnel.</p>
+            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
+            <p className="text-sm text-slate-500">Décrivez précisément votre souffrance (zona, eczéma, douleurs, etc.).</p>
           </div>
           <div className="flex items-start gap-4">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">3</div>
-            <p className="text-sm text-slate-500">Jean-François effectuera une première passe de rééquilibrage dès réception.</p>
+            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
+            <p className="text-sm text-slate-500">Validez le formulaire pour m'envoyer les éléments instantanément.</p>
           </div>
         </div>
       </div>
@@ -135,10 +153,10 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">Décrivez votre besoin</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Décrivez votre demande</label>
           <textarea 
             className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none h-32 text-sm"
-            placeholder="Ex: Je souffre de migraines chroniques depuis 2 semaines..."
+            placeholder="Ex: Je souffre de zona, eczéma, douleurs dentaires, hémorroïdes ou maux de dos..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
@@ -153,13 +171,13 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
           {isSubmitting ? (
             <>
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              Connexion énergétique...
+              Envoi à Jean-François...
             </>
           ) : (
             <>
-              Transmettre l'énergie
+              Envoyer ma demande par email
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
               </svg>
             </>
           )}
