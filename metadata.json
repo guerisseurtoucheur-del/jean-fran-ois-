@@ -1,0 +1,7 @@
+{
+  "name": "Jean-François Magnétiseur",
+  "description": "Une plateforme de soins énergétiques à distance par Jean-François. Posez vos questions, discutez et recevez des soins sur photo.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
