@@ -1,22 +1,8 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-// Fonction sécurisée pour récupérer la clé API sans faire planter le navigateur
-const getSafeApiKey = () => {
-  try {
-    // @ts-ignore
-    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
-      return process.env.API_KEY;
-    }
-  } catch (e) {
-    console.warn("Environnement process non détecté");
-  }
-  return "";
-};
-
-export const chatWithJeanFrancois = async (message: string, history: any[] = []) => {
-  const apiKey = getSafeApiKey();
-  const ai = new GoogleGenAI({ apiKey });
+export const chatWithJeanFrancois = async (message: string) => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const model = 'gemini-3-flash-preview';
   
   const systemInstruction = `
@@ -41,11 +27,10 @@ export const chatWithJeanFrancois = async (message: string, history: any[] = [])
 };
 
 export const analyzeHealingRequest = async (description: string, imageData?: string) => {
-  const apiKey = getSafeApiKey();
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const model = 'gemini-3-flash-preview';
   
-  const contents: any[] = [
+  const parts: any[] = [
     { text: `Analyse cette demande de soin énergétique de manière empathique : ${description}. 
     Si la demande concerne un zona, de l'eczéma, une douleur dentaire ou des hémorroïdes, explique comment ton magnétisme peut "couper le feu" ou apaiser l'inflammation.
     Explique comment Jean-François va travailler sur ce problème spécifiquement (par exemple : nettoyage des nœuds énergétiques, harmonisation du plexus solaire, apaisement cutané, etc). 
@@ -53,7 +38,7 @@ export const analyzeHealingRequest = async (description: string, imageData?: str
   ];
 
   if (imageData) {
-    contents.push({
+    parts.push({
       inlineData: {
         mimeType: 'image/jpeg',
         data: imageData.split(',')[1],
@@ -63,7 +48,7 @@ export const analyzeHealingRequest = async (description: string, imageData?: str
 
   const response = await ai.models.generateContent({
     model,
-    contents: { parts: contents },
+    contents: { parts },
   });
 
   return response.text;
