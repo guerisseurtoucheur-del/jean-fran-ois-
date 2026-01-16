@@ -1,18 +1,22 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-// Sécurité pour éviter l'écran blanc sur certains environnements de déploiement
-const getApiKey = () => {
+// Fonction sécurisée pour récupérer la clé API sans faire planter le navigateur
+const getSafeApiKey = () => {
   try {
-    return process.env.API_KEY || "";
+    // @ts-ignore
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+      return process.env.API_KEY;
+    }
   } catch (e) {
-    return "";
+    console.warn("Environnement process non détecté");
   }
+  return "";
 };
 
-const ai = new GoogleGenAI({ apiKey: getApiKey() });
-
 export const chatWithJeanFrancois = async (message: string, history: any[] = []) => {
+  const apiKey = getSafeApiKey();
+  const ai = new GoogleGenAI({ apiKey });
   const model = 'gemini-3-flash-preview';
   
   const systemInstruction = `
@@ -37,6 +41,8 @@ export const chatWithJeanFrancois = async (message: string, history: any[] = [])
 };
 
 export const analyzeHealingRequest = async (description: string, imageData?: string) => {
+  const apiKey = getSafeApiKey();
+  const ai = new GoogleGenAI({ apiKey });
   const model = 'gemini-3-flash-preview';
   
   const contents: any[] = [
