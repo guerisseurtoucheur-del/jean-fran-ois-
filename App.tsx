@@ -26,38 +26,27 @@ const App: React.FC = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] md:w-[1200px] md:h-[1200px] bg-amber-500 rounded-full blur-[120px] opacity-40 animate-pulse"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-yellow-400 rounded-full blur-[80px] opacity-60"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] bg-white rounded-full blur-[40px] opacity-80"></div>
-                
-                {/* Rayons du soleil stylisés */}
-                <div className="absolute inset-0 opacity-20">
-                  {[...Array(12)].map((_, i) => (
-                    <div 
-                      key={i} 
-                      className="absolute top-1/2 left-1/2 h-[200%] w-[2px] bg-gradient-to-b from-transparent via-amber-300 to-transparent"
-                      style={{ transform: `translate(-50%, -50%) rotate(${i * 30}deg)` }}
-                    ></div>
-                  ))}
-                </div>
               </div>
 
               <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-transparent to-slate-900/80 z-10"></div>
               
               <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-8">
-                <div className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-amber-200 text-sm font-semibold tracking-wide border border-white/20">
-                  MAGNÉTISME • SOINS ÉNERGÉTIQUES • ALENÇON & DISTANCE
+                <div className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-amber-200 text-sm font-semibold tracking-wide border border-white/20 uppercase">
+                  SOINS ÉNERGÉTIQUES SUR PHOTO • DISPONIBLE PARTOUT EN FRANCE
                 </div>
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-none drop-shadow-2xl">
                   Jean-François <br />
-                  <span className="text-amber-400 italic">Magnétiseur à Alençon</span>
+                  <span className="text-amber-400 italic">Magnétiseur National</span>
                 </h1>
                 <p className="max-w-2xl mx-auto text-lg text-slate-100 leading-relaxed font-light drop-shadow-lg">
-                  Coupeur de feu et guérisseur traditionnel. Je soulage vos maux : zona, eczéma, douleurs physiques et blocages énergétiques dans l'Orne, la Sarthe et la Mayenne.
+                  Coupeur de feu et guérisseur traditionnel. Je soulage vos maux (zona, eczéma, douleurs) au cabinet à Alençon ou à distance sur photo <span className="font-semibold text-amber-300">partout en France</span>.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 pt-4">
                   <button 
                     onClick={() => setActiveTab('healing')}
                     className="px-8 py-4 bg-amber-500 text-slate-900 rounded-full font-bold shadow-2xl shadow-amber-500/30 hover:bg-amber-400 transition-all hover:translate-y-[-2px] active:scale-95"
                   >
-                    Demander un soin sur photo
+                    Demander un soin à distance
                   </button>
                   <button 
                     onClick={() => setActiveTab('chat')}
@@ -72,26 +61,26 @@ const App: React.FC = () => {
             {/* Features Section */}
             <section className="max-w-6xl mx-auto px-6">
               <div className="text-center mb-16 space-y-4">
-                <h2 className="text-4xl font-serif font-bold text-slate-800">Soins énergétiques et Magnétisme</h2>
+                <h2 className="text-4xl font-serif font-bold text-slate-800">Le Magnétisme sans frontières</h2>
                 <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full"></div>
-                <p className="text-slate-500 max-w-xl mx-auto">Intervention rapide pour apaiser vos souffrances à Alençon et partout en France à distance.</p>
+                <p className="text-slate-500 max-w-xl mx-auto">Que vous soyez à Paris, Lyon, Marseille ou dans un petit village, mon énergie vous accompagne sur simple photo.</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {[
                   {
-                    title: "Douleurs Physiques",
-                    desc: "Zona, eczéma, douleurs dentaires, migraines, douleurs dorsales, problèmes digestifs ou hémorroïdes. Le magnétisme apaise le feu et l'inflammation.",
-                    icon: "M13 10V3L4 14h7v7l9-11h-7z"
+                    title: "Soin sur Photo",
+                    desc: "La photo est le support vibratoire qui me permet de vous envoyer de l'énergie où que vous soyez en France. Idéal pour le zona et les urgences.",
+                    icon: "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
                   },
                   {
-                    title: "Troubles Émotionnels",
-                    desc: "Stress, anxiété, fatigue chronique ou burn-out. Harmonisation profonde des centres énergétiques pour retrouver la paix.",
-                    icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    title: "Coupeur de Feu",
+                    desc: "Brûlures, zona, radiothérapie. J'interviens immédiatement à distance pour 'couper' la douleur et favoriser la cicatrisation.",
+                    icon: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
                   },
                   {
-                    title: "Accompagnement",
-                    desc: "Un suivi bienveillant et une écoute sans jugement pour vous redonner la force de traverser les épreuves de la vie.",
-                    icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                    title: "Harmonisation",
+                    desc: "Rééquilibrage complet de vos chakras et de votre aura pour retrouver vitalité et sérénité émotionnelle au quotidien.",
+                    icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707"
                   }
                 ].map((item, i) => (
                   <div key={i} className="group bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-amber-50 transition-all">
@@ -104,23 +93,6 @@ const App: React.FC = () => {
                     <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
-              </div>
-            </section>
-
-            {/* Testimonials Simulation */}
-            <section className="bg-slate-900 py-24 text-white overflow-hidden relative">
-              <div className="absolute top-0 right-0 w-1/2 h-full bg-amber-500/10 skew-x-12 translate-x-32"></div>
-              <div className="max-w-4xl mx-auto px-6 text-center space-y-12 relative z-10">
-                <h2 className="text-4xl font-serif font-bold italic leading-tight">"L'énergie est comme la lumière du soleil : elle est partout, elle réchauffe et elle transforme l'ombre en clarté."</h2>
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-24 h-24 rounded-full border-2 border-amber-400 p-1.5 bg-slate-900 shadow-2xl">
-                    <div className="w-full h-full rounded-full bg-amber-500 flex items-center justify-center text-3xl font-serif font-bold text-slate-900">JF</div>
-                  </div>
-                  <div>
-                    <p className="font-bold text-xl">Jean-François</p>
-                    <p className="text-amber-400 text-sm font-medium tracking-widest uppercase">Magnétiseur • Guérisseur Alençon</p>
-                  </div>
-                </div>
               </div>
             </section>
           </div>
