@@ -69,6 +69,25 @@
       .faq-details[open] summary svg {
         transform: rotate(180deg);
       }
+      
+      /* Animation de pulsation énergétique */
+      @keyframes energy-vibration {
+        0%, 100% {
+          transform: scale(1);
+          text-shadow: 0 0 0px rgba(251, 191, 36, 0);
+          filter: brightness(1);
+        }
+        50% {
+          transform: scale(1.04);
+          text-shadow: 0 0 25px rgba(251, 191, 36, 0.6);
+          filter: brightness(1.2);
+        }
+      }
+      .pulse-energy {
+        display: inline-block;
+        animation: energy-vibration 3.5s ease-in-out infinite;
+        transform-origin: center;
+      }
     </style>
   <script type="importmap">
 {

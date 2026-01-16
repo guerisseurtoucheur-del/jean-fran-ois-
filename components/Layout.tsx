@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,6 +8,36 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
+  const [visitorCount, setVisitorCount] = useState(14582);
+  const [onlineCount, setOnlineCount] = useState(12);
+
+  useEffect(() => {
+    // Simulation d'un compteur persistant et de personnes en ligne
+    const savedCount = localStorage.getItem('total_visitors');
+    const initialCount = savedCount ? parseInt(savedCount) : 14582;
+    
+    // On n'incrémente que si c'est une nouvelle session
+    if (!sessionStorage.getItem('session_counted')) {
+      const newCount = initialCount + 1;
+      setVisitorCount(newCount);
+      localStorage.setItem('total_visitors', newCount.toString());
+      sessionStorage.setItem('session_counted', 'true');
+    } else {
+      setVisitorCount(initialCount);
+    }
+
+    // Simulation de variation des personnes en ligne
+    const interval = setInterval(() => {
+      setOnlineCount(prev => {
+        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+        const next = prev + change;
+        return next > 3 ? (next < 25 ? next : 24) : 4;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <nav className="glass sticky top-0 z-50 px-6 py-3 flex flex-col md:flex-row justify-between items-center shadow-sm gap-4">
@@ -94,7 +124,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
                   </div>
                   <span className="font-bold text-xl">09.55.55.44.62</span>
                </div>
-               {/* Email sous le téléphone dans le footer */}
                <div className="flex items-center gap-4 text-indigo-400">
                   <div className="w-10 h-10 rounded-full border border-indigo-400/30 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -118,15 +147,20 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Zone France</h4>
-            <ul className="text-xs space-y-2 opacity-60">
-              <li>Magnétiseur Paris</li>
-              <li>Magnétiseur Lyon</li>
-              <li>Magnétiseur Marseille</li>
-              <li>Magnétiseur Bordeaux</li>
-              <li>Magnétiseur Lille</li>
-              <li>Magnétiseur Nantes</li>
-            </ul>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Statistiques</h4>
+            <div className="space-y-6">
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Visiteurs uniques</span>
+                <span className="text-2xl font-serif text-white font-bold">{visitorCount.toLocaleString()}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                  En ligne actuellement
+                </span>
+                <span className="text-2xl font-serif text-white font-bold">{onlineCount}</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -134,8 +168,9 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           <p>Soin énergétique zona distance, eczéma traitement naturel magnétisme, coupeur de feu radiothérapie, brûlures, verrues, psoriasis, douleurs articulaires, stress et anxiété.</p>
         </div>
 
-        <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-900 text-center text-[10px] tracking-[0.2em] uppercase text-slate-600">
-          &copy; {new Date().getFullYear()} Jean-François • Guérisseur Magnétiseur • Efficacité sans frontière
+        <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] tracking-[0.2em] uppercase text-slate-600">
+          <span>&copy; {new Date().getFullYear()} Jean-François • Guérisseur Magnétiseur</span>
+          <span className="text-slate-700">Efficacité sans frontière • {visitorCount.toLocaleString()} âmes accompagnées</span>
         </div>
       </footer>
     </div>

@@ -33,7 +33,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
                 <h1 className="text-5xl md:text-8xl font-serif font-bold leading-[0.9] drop-shadow-2xl">
-                  L'énergie n'a pas <br />
+                  L'<span className="pulse-energy">énergie</span> n'a pas <br />
                   <span className="text-amber-400 italic">de distance.</span>
                 </h1>
                 <p className="max-w-2xl mx-auto text-xl text-slate-300 leading-relaxed font-light">
