@@ -8,7 +8,11 @@ export interface Message {
 
 export interface HealingSession {
   id: string;
-  userName: string;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  email: string;
+  phone: string;
   problemDescription: string;
   photoUrl: string | null;
   status: 'pending' | 'in_progress' | 'completed';

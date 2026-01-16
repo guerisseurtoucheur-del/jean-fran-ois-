@@ -19,45 +19,49 @@ const App: React.FC = () => {
       default:
         return (
           <div className="space-y-20 pb-20">
-            {/* Hero Section */}
-            <section className="relative h-[85vh] flex items-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-transparent z-10"></div>
+            {/* Hero Section with Radiant Sun */}
+            <section className="relative h-[85vh] flex items-center overflow-hidden bg-slate-900">
+              {/* Grand Soleil Radiant */}
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] md:w-[1200px] md:h-[1200px] bg-amber-500 rounded-full blur-[120px] opacity-40 animate-pulse"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-yellow-400 rounded-full blur-[80px] opacity-60"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] bg-white rounded-full blur-[40px] opacity-80"></div>
+                
+                {/* Rayons du soleil stylisés */}
+                <div className="absolute inset-0 opacity-20">
+                  {[...Array(12)].map((_, i) => (
+                    <div 
+                      key={i} 
+                      className="absolute top-1/2 left-1/2 h-[200%] w-[2px] bg-gradient-to-b from-transparent via-amber-300 to-transparent"
+                      style={{ transform: `translate(-50%, -50%) rotate(${i * 30}deg)` }}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-transparent to-slate-900/80 z-10"></div>
               
-              {/* Utilisation de l'image exacte fournie par l'utilisateur */}
-              <img 
-                src="https://r2.erweima.ai/ai_image/957e8417-709f-43b6-863a-237467645167.jpg" 
-                alt="Jean-François en plein soin énergétique - Illustration" 
-                className="absolute inset-0 w-full h-full object-cover object-center scale-105 animate-slow-zoom"
-                onError={(e) => {
-                  // Fallback au cas où l'URL directe expirerait
-                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop";
-                }}
-              />
-              
-              {/* Overlay subtil pour accentuer l'effet énergétique */}
-              <div className="absolute inset-0 z-15 bg-indigo-500/5 mix-blend-screen pointer-events-none"></div>
-              
-              <div className="relative z-20 max-w-6xl mx-auto px-6 text-white space-y-8">
-                <div className="inline-block px-4 py-1.5 bg-indigo-500/20 backdrop-blur-md rounded-full text-indigo-300 text-sm font-semibold tracking-wide border border-indigo-400/20">
+              <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-8">
+                <div className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-amber-200 text-sm font-semibold tracking-wide border border-white/20">
                   MAGNÉTISME • SOINS ÉNERGÉTIQUES • COUPEUR DE FEU
                 </div>
-                <h1 className="text-6xl md:text-8xl font-serif font-bold leading-none">
+                <h1 className="text-6xl md:text-8xl font-serif font-bold leading-none drop-shadow-2xl">
                   L'énergie qui <br />
-                  <span className="text-indigo-400 italic">apaise et guérit</span>
+                  <span className="text-amber-400 italic">apaise et soulage</span>
                 </h1>
-                <p className="max-w-xl text-lg text-slate-200 leading-relaxed font-light">
-                  Je suis Jean-François. Par le don du magnétisme, je soulage vos maux : zona, eczéma, douleurs dentaires, hémorroïdes et blocages profonds.
+                <p className="max-w-2xl mx-auto text-lg text-slate-100 leading-relaxed font-light drop-shadow-lg">
+                  Je suis Jean-François. Par le don du magnétisme et la puissance de l'intention, je soulage vos maux : zona, eczéma, douleurs dentaires, hémorroïdes et blocages profonds.
                 </p>
-                <div className="flex flex-wrap gap-4 pt-4">
+                <div className="flex flex-wrap justify-center gap-4 pt-4">
                   <button 
                     onClick={() => setActiveTab('healing')}
-                    className="px-8 py-4 bg-indigo-600 text-white rounded-full font-bold shadow-2xl shadow-indigo-600/30 hover:bg-indigo-700 transition-all hover:translate-y-[-2px] active:scale-95"
+                    className="px-8 py-4 bg-amber-500 text-slate-900 rounded-full font-bold shadow-2xl shadow-amber-500/30 hover:bg-amber-400 transition-all hover:translate-y-[-2px] active:scale-95"
                   >
                     Demander un soin à distance
                   </button>
                   <button 
                     onClick={() => setActiveTab('chat')}
-                    className="px-8 py-4 glass text-white rounded-full font-bold hover:bg-white/20 transition-all"
+                    className="px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full font-bold hover:bg-white/20 transition-all"
                   >
                     Me poser une question
                   </button>
@@ -69,7 +73,7 @@ const App: React.FC = () => {
             <section className="max-w-6xl mx-auto px-6">
               <div className="text-center mb-16 space-y-4">
                 <h2 className="text-4xl font-serif font-bold text-slate-800">Comment puis-je vous aider ?</h2>
-                <div className="w-24 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+                <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {[
@@ -89,8 +93,8 @@ const App: React.FC = () => {
                     icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
                   }
                 ].map((item, i) => (
-                  <div key={i} className="group bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-indigo-50 transition-all">
-                    <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                  <div key={i} className="group bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-amber-50 transition-all">
+                    <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-white transition-colors">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
                       </svg>
@@ -103,17 +107,17 @@ const App: React.FC = () => {
             </section>
 
             {/* Testimonials Simulation */}
-            <section className="bg-indigo-900 py-24 text-white overflow-hidden relative">
-              <div className="absolute top-0 right-0 w-1/2 h-full bg-indigo-800/30 skew-x-12 translate-x-32"></div>
+            <section className="bg-slate-900 py-24 text-white overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-1/2 h-full bg-amber-500/10 skew-x-12 translate-x-32"></div>
               <div className="max-w-4xl mx-auto px-6 text-center space-y-12 relative z-10">
-                <h2 className="text-4xl font-serif font-bold italic leading-tight">"L'énergie ne connaît pas de frontières. Un soin sur photo agit avec la même puissance qu'une séance en cabinet pour apaiser vos souffrances."</h2>
+                <h2 className="text-4xl font-serif font-bold italic leading-tight">"L'énergie est comme la lumière du soleil : elle est partout, elle réchauffe et elle transforme l'ombre en clarté."</h2>
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-24 h-24 rounded-full border-2 border-indigo-400 p-1.5 bg-indigo-900 shadow-2xl">
-                    <div className="w-full h-full rounded-full bg-indigo-600 flex items-center justify-center text-3xl font-serif font-bold">JF</div>
+                  <div className="w-24 h-24 rounded-full border-2 border-amber-400 p-1.5 bg-slate-900 shadow-2xl">
+                    <div className="w-full h-full rounded-full bg-amber-500 flex items-center justify-center text-3xl font-serif font-bold text-slate-900">JF</div>
                   </div>
                   <div>
                     <p className="font-bold text-xl">Jean-François</p>
-                    <p className="text-indigo-400 text-sm font-medium tracking-widest uppercase">Magnétiseur • Guérisseur</p>
+                    <p className="text-amber-400 text-sm font-medium tracking-widest uppercase">Magnétiseur • Guérisseur</p>
                   </div>
                 </div>
               </div>
