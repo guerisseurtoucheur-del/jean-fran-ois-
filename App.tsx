@@ -43,27 +43,27 @@ const App: React.FC = () => {
               
               <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-8">
                 <div className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-amber-200 text-sm font-semibold tracking-wide border border-white/20">
-                  MAGNÉTISME • SOINS ÉNERGÉTIQUES • COUPEUR DE FEU
+                  MAGNÉTISME • SOINS ÉNERGÉTIQUES • ALENÇON & DISTANCE
                 </div>
-                <h1 className="text-6xl md:text-8xl font-serif font-bold leading-none drop-shadow-2xl">
-                  L'énergie qui <br />
-                  <span className="text-amber-400 italic">apaise et soulage</span>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-none drop-shadow-2xl">
+                  Jean-François <br />
+                  <span className="text-amber-400 italic">Magnétiseur à Alençon</span>
                 </h1>
                 <p className="max-w-2xl mx-auto text-lg text-slate-100 leading-relaxed font-light drop-shadow-lg">
-                  Je suis Jean-François. Par le don du magnétisme et la puissance de l'intention, je soulage vos maux : zona, eczéma, douleurs dentaires, hémorroïdes et blocages profonds.
+                  Coupeur de feu et guérisseur traditionnel. Je soulage vos maux : zona, eczéma, douleurs physiques et blocages énergétiques dans l'Orne, la Sarthe et la Mayenne.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 pt-4">
                   <button 
                     onClick={() => setActiveTab('healing')}
                     className="px-8 py-4 bg-amber-500 text-slate-900 rounded-full font-bold shadow-2xl shadow-amber-500/30 hover:bg-amber-400 transition-all hover:translate-y-[-2px] active:scale-95"
                   >
-                    Demander un soin à distance
+                    Demander un soin sur photo
                   </button>
                   <button 
                     onClick={() => setActiveTab('chat')}
                     className="px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full font-bold hover:bg-white/20 transition-all"
                   >
-                    Me poser une question
+                    Questions & Réponses
                   </button>
                 </div>
               </div>
@@ -72,8 +72,9 @@ const App: React.FC = () => {
             {/* Features Section */}
             <section className="max-w-6xl mx-auto px-6">
               <div className="text-center mb-16 space-y-4">
-                <h2 className="text-4xl font-serif font-bold text-slate-800">Comment puis-je vous aider ?</h2>
+                <h2 className="text-4xl font-serif font-bold text-slate-800">Soins énergétiques et Magnétisme</h2>
                 <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full"></div>
+                <p className="text-slate-500 max-w-xl mx-auto">Intervention rapide pour apaiser vos souffrances à Alençon et partout en France à distance.</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {[
@@ -117,7 +118,7 @@ const App: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-bold text-xl">Jean-François</p>
-                    <p className="text-amber-400 text-sm font-medium tracking-widest uppercase">Magnétiseur • Guérisseur</p>
+                    <p className="text-amber-400 text-sm font-medium tracking-widest uppercase">Magnétiseur • Guérisseur Alençon</p>
                   </div>
                 </div>
               </div>
