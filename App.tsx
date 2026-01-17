@@ -282,6 +282,32 @@ const App: React.FC = () => {
                 </div>
               </div>
             </section>
+
+            {/* SEO Textual Content Section */}
+            <section className="bg-slate-50 py-24 border-t border-slate-200">
+              <div className="max-w-6xl mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                  <div className="space-y-6">
+                    <h2 className="text-3xl font-serif font-bold text-slate-800">Expertise en Magnétisme et Soins Énergétiques à Alençon</h2>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Jean-François est un <strong>magnétiseur guérisseur</strong> installé à <strong>Alençon</strong>, au cœur du département de l'Orne. Fort de plusieurs décennies de pratique, il met son don au service du soulagement des maux physiques et psychiques. Que vous recherchiez un <strong>magnétiseur sérieux</strong> pour un zona douloureux, de l'eczéma persistant ou une fatigue inexpliquée, Jean-François propose un accompagnement basé sur l'humilité et la bienveillance.
+                    </p>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Le magnétisme est une technique de <strong>guérison énergétique</strong> ancestrale qui consiste à transmettre l'énergie vitale pour rétablir l'équilibre du corps et de l'esprit. À Alençon et partout en Normandie, Jean-François est reconnu pour son action de <strong>coupeur de feu</strong>, particulièrement efficace suite à des brûlures domestiques ou des traitements de radiothérapie.
+                    </p>
+                  </div>
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-serif font-bold text-slate-800 italic">Pourquoi choisir le soin sur photo à distance ?</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Beaucoup se demandent comment un <strong>guérisseur à distance</strong> peut agir. L'énergie n'a aucune limite spatiale ou temporelle. En utilisant une photo comme support vibratoire, Jean-François peut se connecter à votre fréquence énergétique unique, que vous soyez à Paris, Lyon, Marseille ou dans les coins les plus reculés de la France. Le <strong>soin sur photo</strong> est une alternative précieuse pour les personnes à mobilité réduite ou trop éloignées géographiquement d'Alençon.
+                    </p>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Les demandes les plus fréquentes concernent le <strong>zona</strong>, les pathologies de peau comme le <strong>psoriasis</strong> et les <strong>verrues</strong>, ainsi que les douleurs chroniques. Chaque séance de magnétisme est menée avec un suivi personnalisé, garantissant une présence rassurante tout au long du processus de mieux-être. Jean-François rappelle toutefois que le magnétisme ne remplace jamais un avis médical et doit être considéré comme une aide complémentaire.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         );
     }
