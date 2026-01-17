@@ -12,21 +12,29 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
   const [onlineCount, setOnlineCount] = useState(12);
 
   useEffect(() => {
-    // Simulation d'un compteur persistant et de personnes en ligne
-    const savedCount = localStorage.getItem('total_visitors');
-    const initialCount = savedCount ? parseInt(savedCount) : 14582;
+    // Calcul du nombre de visiteurs basé sur le temps (croissance journalière)
+    // Date de référence : 1er Janvier 2024
+    const startDate = new Date('2024-01-01').getTime();
+    const now = Date.now();
+    const daysElapsed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
     
-    // On n'incrémente que si c'est une nouvelle session
+    // On simule une moyenne de 14 visiteurs par jour depuis le début de l'année
+    const baseCount = 14582;
+    const dailyGrowth = 14; 
+    const calculatedTotal = baseCount + (daysElapsed * dailyGrowth);
+
+    // On ajoute un petit bonus de session pour que l'utilisateur voit le compteur bouger
     if (!sessionStorage.getItem('session_counted')) {
-      const newCount = initialCount + 1;
-      setVisitorCount(newCount);
-      localStorage.setItem('total_visitors', newCount.toString());
+      const finalCount = calculatedTotal + 1;
+      setVisitorCount(finalCount);
       sessionStorage.setItem('session_counted', 'true');
+      localStorage.setItem('last_calculated_count', finalCount.toString());
     } else {
-      setVisitorCount(initialCount);
+      const saved = localStorage.getItem('last_calculated_count');
+      setVisitorCount(saved ? parseInt(saved) : calculatedTotal);
     }
 
-    // Simulation de variation des personnes en ligne
+    // Simulation de variation des personnes en ligne (pour le réalisme)
     const interval = setInterval(() => {
       setOnlineCount(prev => {
         const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
@@ -65,7 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
         </div>
 
-        {/* Info Localisation & Contact au centre (Barre blanche/ambre) */}
+        {/* Info Localisation & Contact au centre */}
         <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 px-4 py-2 bg-amber-50 rounded-2xl border border-amber-100 max-w-xl shadow-inner">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
@@ -162,10 +170,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="sr-only-seo" aria-hidden="true">
-          <p>Soin énergétique zona distance, eczéma traitement naturel magnétisme, coupeur de feu radiothérapie, brûlures, verrues, psoriasis, douleurs articulaires, stress et anxiété.</p>
         </div>
 
         <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] tracking-[0.2em] uppercase text-slate-600">
