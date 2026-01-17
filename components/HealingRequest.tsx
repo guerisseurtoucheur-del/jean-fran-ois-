@@ -35,16 +35,18 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
   const generateMailtoLink = () => {
     const subject = encodeURIComponent(`Demande de soin énergétique - ${firstName} ${lastName}`);
     const body = encodeURIComponent(
+      `*** IMPORTANT : MERCI D'ATTACHER MA PHOTO À CET EMAIL AVANT L'ENVOI ***\n\n` +
       `Bonjour Jean-François,\n\n` +
-      `Voici ma demande de soin énergétique :\n\n` +
+      `Voici ma demande de soin énergétique complète :\n\n` +
       `NOM : ${lastName.toUpperCase()}\n` +
       `PRÉNOM : ${firstName}\n` +
       `DATE DE NAISSANCE : ${birthDate}\n` +
       `EMAIL : ${email}\n` +
       `TÉLÉPHONE : ${phone || 'Non renseigné'}\n\n` +
-      `DESCRIPTION DU PROBLÈME :\n${description}\n\n` +
+      `DESCRIPTION DES MAUX :\n${description}\n\n` +
       `---\n` +
-      `Note : Si j'ai joint une photo sur le site, je pense à l'attacher également à cet email pour votre analyse.`
+      `Analyse préliminaire du site : ${analysis?.substring(0, 200)}...\n\n` +
+      `J'attache ma photo à ce message pour votre travail à distance.`
     );
     return `mailto:guerisseurtoucheur@gmail.com?subject=${subject}&body=${body}`;
   };
@@ -53,7 +55,7 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
     if (e) e.preventDefault();
     
     if (!firstName || !lastName || !birthDate || !email || !description) {
-      alert("Veuillez remplir tous les champs obligatoires (Prénom, Nom, Date de naissance, Email et Description).");
+      alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
 
@@ -81,7 +83,7 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
       localStorage.setItem('sessions', JSON.stringify([...sessions, newSession]));
       
     } catch (err) {
-      console.error("Erreur de transmission :", err);
+      console.error("Erreur :", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -89,46 +91,69 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
 
   if (analysis) {
     return (
-      <div className="max-w-2xl mx-auto p-8 bg-white rounded-3xl shadow-2xl border border-indigo-50 text-center animate-fade-in">
-        <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
+      <div className="max-w-2xl mx-auto p-8 bg-white rounded-3xl shadow-2xl border border-indigo-50 animate-fade-in">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-serif font-bold text-slate-800 mb-2">Dossier prêt à l'envoi</h2>
+          <p className="text-slate-500 text-sm mb-6 italic">L'analyse énergétique a été intégrée à votre demande.</p>
         </div>
-        <h2 className="text-3xl font-serif font-bold text-slate-800 mb-2">Analyse Terminée</h2>
-        <p className="text-amber-600 font-bold mb-6 text-sm flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-          </svg>
-          Dernière étape : Cliquez sur le bouton ci-dessous pour m'envoyer votre dossier.
-        </p>
-        
-        <div className="bg-slate-50 p-6 rounded-2xl text-left mb-8 border border-slate-100">
-          <h3 className="text-indigo-600 font-semibold mb-2">Mon premier ressenti pour vous :</h3>
-          <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line italic">
+
+        {photo && (
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-2xl animate-pulse">
+            <div className="flex gap-4 items-center">
+              <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-white shadow-md flex-shrink-0">
+                <img src={photo} alt="Votre photo" className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="text-red-700 font-black text-sm uppercase">Action Requise :</p>
+                <p className="text-red-600 text-xs font-bold leading-tight">
+                  N'oubliez pas d'attacher cette photo manuellement dans l'email qui va s'ouvrir !
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-slate-50 p-6 rounded-2xl text-left mb-8 border border-slate-100 max-h-48 overflow-y-auto">
+          <h3 className="text-indigo-600 text-xs font-black uppercase tracking-widest mb-2">Ressenti de Jean-François :</h3>
+          <p className="text-slate-600 text-sm leading-relaxed italic">
             "{analysis}"
           </p>
         </div>
-        
-        <div className="flex flex-col gap-4">
+
+        <div className="space-y-4">
           <a 
             href={generateMailtoLink()}
-            className="w-full bg-amber-500 text-slate-950 px-8 py-5 rounded-full font-black shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-lg"
+            className="w-full bg-amber-500 text-slate-950 px-8 py-5 rounded-full font-black shadow-xl hover:scale-[1.02] active:scale-95 transition-all flex flex-col items-center justify-center leading-none"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-            </svg>
-            ENVOYER MON DOSSIER PAR EMAIL
+            <span className="text-lg">VALIDER ET ENVOYER L'EMAIL</span>
+            <span className="text-[10px] uppercase tracking-widest mt-2 opacity-70">Ouvre votre messagerie automatiquement</span>
           </a>
 
-          <button 
-            onClick={() => onSuccess({} as any)} 
-            className="text-slate-400 text-xs font-medium hover:underline py-2"
-          >
-            Accéder au tableau de bord (Optionnel)
-          </button>
+          <div className="flex justify-between items-center px-4">
+             <button 
+                onClick={() => setAnalysis(null)} 
+                className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600"
+              >
+                ← Modifier mes infos
+              </button>
+              <button 
+                onClick={() => onSuccess({} as any)} 
+                className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600"
+              >
+                Voir mon tableau de bord
+              </button>
+          </div>
         </div>
+        
+        <p className="mt-8 text-[10px] text-slate-400 text-center leading-relaxed">
+          Si votre logiciel de messagerie ne s'ouvre pas, envoyez directement les informations et votre photo à : <br/>
+          <strong className="text-indigo-600 select-all">guerisseurtoucheur@gmail.com</strong>
+        </p>
       </div>
     );
   }
@@ -140,7 +165,8 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
       <div className="space-y-6">
         <h2 className="text-4xl font-serif font-bold text-slate-800 leading-tight">Demande de soin sur photo</h2>
         <p className="text-slate-600">
-          Complétez ce formulaire pour que je puisse me connecter à votre énergie. Une fois l'analyse terminée, vous pourrez m'envoyer votre dossier complet par email en un clic.
+          Pour une action à distance efficace, Jean-François a besoin de vos informations exactes. 
+          L'envoi final se fait <span className="font-bold underline">par votre propre boîte mail</span> pour garantir la sécurité et la réception de votre photo.
         </p>
         
         <div className="bg-amber-50 p-5 rounded-2xl border border-amber-100 flex items-center gap-4">
@@ -150,23 +176,23 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
             </svg>
           </div>
           <div>
-            <p className="text-xs text-amber-600 uppercase font-black tracking-widest">Canal Direct</p>
-            <p className="text-amber-900 font-bold">Réception sur guerisseurtoucheur@gmail.com</p>
+            <p className="text-xs text-amber-600 uppercase font-black tracking-widest">Réception Directe</p>
+            <p className="text-amber-900 font-bold">guerisseurtoucheur@gmail.com</p>
           </div>
         </div>
 
         <div className="space-y-4 pt-4">
           <div className="flex items-start gap-4">
             <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">1</div>
-            <p className="text-sm text-slate-500">Renseignez vos informations (Nom, Prénom, Naissance).</p>
+            <p className="text-sm text-slate-500">Remplissez le formulaire ci-contre.</p>
           </div>
           <div className="flex items-start gap-4">
             <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
-            <p className="text-sm text-slate-500">Décrivez vos douleurs avec précision.</p>
+            <p className="text-sm text-slate-500">Choisissez une photo claire de vous ou de la zone à traiter.</p>
           </div>
           <div className="flex items-start gap-4">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
-            <p className="text-sm text-slate-500">Cliquez sur envoyer pour générer votre email de demande.</p>
+            <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
+            <p className="text-sm text-slate-800 font-bold">L'email s'ouvrira : n'oubliez pas d'y joindre votre photo avant d'envoyer.</p>
           </div>
         </div>
       </div>
@@ -236,7 +262,7 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
           <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Description de vos maux</label>
           <textarea 
             className="w-full px-4 py-3 rounded-2xl border border-slate-700 bg-slate-900/90 text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500 outline-none h-32 text-sm transition-all"
-            placeholder="Détaillez vos douleurs (zona, eczéma, migraines...)"
+            placeholder="Détaillez vos douleurs avec précision..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
@@ -244,7 +270,7 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Photo énergétique (Optionnelle)</label>
+          <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Photo énergétique (Fortement recommandée)</label>
           <div className="relative group">
             <input 
               type="file" 
@@ -252,11 +278,21 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
               onChange={handleFileChange}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
-            <div className={`h-24 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center transition-all ${photo ? 'border-indigo-400 bg-indigo-50' : 'border-slate-300 bg-white group-hover:border-indigo-300'}`}>
+            <div className={`h-28 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center transition-all ${photo ? 'border-indigo-400 bg-indigo-50' : 'border-slate-300 bg-white group-hover:border-indigo-300'}`}>
               {photo ? (
-                <img src={photo} alt="Preview" className="h-full w-full object-cover rounded-2xl" />
+                <div className="relative h-full w-full">
+                  <img src={photo} alt="Preview" className="h-full w-full object-cover rounded-2xl opacity-60" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase">Changer la photo</span>
+                  </div>
+                </div>
               ) : (
-                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Choisir une photo</span>
+                <div className="text-center p-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-slate-300 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-slate-400 text-[10px] uppercase font-black tracking-widest">Cliquer pour choisir votre photo</span>
+                </div>
               )}
             </div>
           </div>
@@ -265,7 +301,7 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
         <button 
           type="submit"
           disabled={isSubmitting || !description || !firstName}
-          className="w-full bg-indigo-600 text-white py-4 rounded-full font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 disabled:bg-slate-300"
+          className="w-full bg-indigo-600 text-white py-5 rounded-full font-black shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 disabled:bg-slate-300 uppercase tracking-widest text-sm"
         >
           {isSubmitting ? (
             <>
@@ -273,9 +309,9 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Connexion énergétique...
+              Connexion en cours...
             </>
-          ) : 'Analyser ma demande'}
+          ) : 'Préparer mon dossier'}
         </button>
       </form>
     </div>
