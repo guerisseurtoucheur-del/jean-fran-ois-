@@ -12,18 +12,14 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
   const [onlineCount, setOnlineCount] = useState(12);
 
   useEffect(() => {
-    // Calcul du nombre de visiteurs basé sur le temps (croissance journalière)
-    // Date de référence : 1er Janvier 2024
     const startDate = new Date('2024-01-01').getTime();
     const now = Date.now();
     const daysElapsed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
     
-    // On simule une moyenne de 14 visiteurs par jour depuis le début de l'année
     const baseCount = 14582;
     const dailyGrowth = 14; 
     const calculatedTotal = baseCount + (daysElapsed * dailyGrowth);
 
-    // On ajoute un petit bonus de session pour que l'utilisateur voit le compteur bouger
     if (!sessionStorage.getItem('session_counted')) {
       const finalCount = calculatedTotal + 1;
       setVisitorCount(finalCount);
@@ -34,10 +30,9 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       setVisitorCount(saved ? parseInt(saved) : calculatedTotal);
     }
 
-    // Simulation de variation des personnes en ligne (pour le réalisme)
     const interval = setInterval(() => {
       setOnlineCount(prev => {
-        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+        const change = Math.floor(Math.random() * 3) - 1;
         const next = prev + change;
         return next > 3 ? (next < 25 ? next : 24) : 4;
       });
@@ -60,7 +55,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
           <div className="flex flex-col">
             <h1 className="text-xl font-bold text-slate-800 leading-none mb-1">Jean-François</h1>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold leading-none mb-1">Guérisseur • Magnétisme National</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold leading-none mb-1">Magnétiseur Alençon • France Entière</p>
             <div className="flex items-center gap-3 mt-1">
               <a 
                 href="tel:0955554462" 
@@ -73,25 +68,18 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
         </div>
 
-        {/* Info Localisation & Contact au centre */}
-        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 px-4 py-2 bg-amber-50 rounded-2xl border border-amber-100 max-w-xl shadow-inner">
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 px-4 py-2 bg-amber-50 rounded-2xl border border-amber-100 max-w-xl shadow-inner text-center">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
             </span>
             <p className="text-[11px] md:text-xs text-amber-900 leading-tight">
-              Disponible <span className="font-bold">partout en France</span> via soin sur photo.
+              Soin sur photo <span className="font-bold">disponible partout en France</span>.
             </p>
           </div>
           <div className="hidden md:block w-px h-4 bg-amber-200"></div>
-          <a href="mailto:guerisseurtoucheur@gmail.com" className="flex items-center gap-1.5 text-[11px] md:text-xs text-indigo-600 font-bold hover:underline transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-            </svg>
-            guerisseurtoucheur@gmail.com
-          </a>
+          <p className="text-[10px] text-amber-700 font-medium">Cabinet Alençon & Distance</p>
         </div>
 
         <div className="flex items-center gap-6">
@@ -119,9 +107,9 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       <footer className="bg-slate-950 text-slate-400 py-20 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-white font-serif text-3xl mb-6 italic">Jean-François</h3>
+            <h3 className="text-white font-serif text-3xl mb-6 italic">Jean-François • Magnétiseur Guérisseur</h3>
             <p className="text-sm leading-relaxed mb-8 max-w-md">
-              Depuis plus de 20 ans, j'accompagne ceux qui souffrent, sur place à Alençon ou à distance. Mon magnétisme ne connaît aucune frontière géographique.
+              Plus de 20 ans d'expertise en magnétisme et soins énergétiques. Basé à Alençon (Orne), j'accompagne ceux qui souffrent partout en France grâce à la force du soin sur photo.
             </p>
             <div className="flex flex-col gap-6">
                <div className="flex items-center gap-4 text-amber-500">
@@ -145,36 +133,31 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
           
           <div>
-            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Soin à distance</h4>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Soin à distance sérieux</h4>
             <ul className="text-sm space-y-4">
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Soin sur photo : mode d'emploi</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Traitement zona urgence</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Avis sur les soins à distance</li>
+              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Magnétiseur Orne (61)</li>
+              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Guérisseur zona à distance</li>
+              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Traitement eczéma sur photo</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('dashboard')}>Suivi de ma séance</li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Statistiques</h4>
-            <div className="space-y-6">
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Visiteurs uniques</span>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Localisation</h4>
+            <div className="space-y-4 text-sm">
+              <p>Secteur Alençon (61000)</p>
+              <p>Orne, Basse-Normandie</p>
+              <div className="pt-4 flex flex-col gap-1">
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Visiteurs</span>
                 <span className="text-2xl font-serif text-white font-bold">{visitorCount.toLocaleString()}</span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                  En ligne actuellement
-                </span>
-                <span className="text-2xl font-serif text-white font-bold">{onlineCount}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] tracking-[0.2em] uppercase text-slate-600">
-          <span>&copy; {new Date().getFullYear()} Jean-François • Guérisseur Magnétiseur</span>
-          <span className="text-slate-700">Efficacité sans frontière • {visitorCount.toLocaleString()} âmes accompagnées</span>
+          <span>&copy; {new Date().getFullYear()} Jean-François • Alençon (61) • Magnétiseur Guérisseur National</span>
+          <span className="text-slate-700">Magnétiseur sérieux à distance • {visitorCount.toLocaleString()} âmes accompagnées</span>
         </div>
       </footer>
     </div>

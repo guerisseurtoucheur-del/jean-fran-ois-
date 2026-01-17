@@ -55,7 +55,7 @@ const App: React.FC = () => {
               <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-8">
                 <div className="flex justify-center">
                   <div className="inline-flex items-center gap-2 px-5 py-2 bg-amber-500/20 backdrop-blur-xl rounded-full text-amber-300 text-xs font-bold tracking-[0.2em] border border-amber-500/30 uppercase">
-                    Efficacité garantie partout en France
+                    Magnétiseur Alençon & France entière
                   </div>
                 </div>
                 <h1 className="text-5xl md:text-8xl font-serif font-bold leading-[0.9] drop-shadow-2xl">
@@ -64,7 +64,7 @@ const App: React.FC = () => {
                 </h1>
                 <div className="space-y-4 max-w-2xl mx-auto">
                   <p className="text-xl text-slate-300 leading-relaxed font-light">
-                    Jean-François, magnétiseur guérisseur, intervient <span className="text-white font-medium underline decoration-amber-500 underline-offset-4">sur photo</span> pour soulager vos maux partout en France.
+                    Jean-François, <span className="text-white font-bold">magnétiseur guérisseur à Alençon</span>, intervient <span className="text-white font-medium underline decoration-amber-500 underline-offset-4">sur photo</span> pour soulager vos maux partout en France.
                   </p>
                   <p className="text-sm md:text-base text-slate-400 italic font-light opacity-90 leading-relaxed">
                     "Nombreux sont ceux dont les souffrances entravent les déplacements ; sachez que ma pratique s'affranchit des contraintes physiques pour vous apporter soulagement et apaisement, précisément là où vous vous trouvez."
@@ -81,27 +81,39 @@ const App: React.FC = () => {
               </div>
             </section>
 
+            {/* SEO Section: Ancrage Géographique */}
+            <section className="max-w-4xl mx-auto px-6 text-center">
+              <h2 className="text-3xl font-serif font-bold text-slate-800 mb-6 uppercase tracking-widest">Magnétiseur reconnu à Alençon et partout en France</h2>
+              <div className="prose prose-slate mx-auto text-slate-500 leading-relaxed text-sm">
+                <p>
+                  Installé au cœur de la Normandie, Jean-François exerce en tant que <strong>magnétiseur à Alençon (61000)</strong> depuis plus de deux décennies. 
+                  Sa réputation de guérisseur sérieux s'étend aujourd'hui au-delà de l'Orne grâce à son expertise unique dans le <strong>soin à distance sur photo</strong>. 
+                  Que vous soyez à Paris, Lyon, Marseille ou dans le plus petit village de l'Hexagone, son énergie de guérison vous rejoint pour traiter vos pathologies cutanées (zona, eczéma) ou vos douleurs physiques chroniques.
+                </p>
+              </div>
+            </section>
+
             {/* Pathologies Section */}
             <section className="max-w-6xl mx-auto px-6">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Expertise en Magnétisme Curatif</h2>
+                <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Magnétisme à distance sérieux : Mon Expertise</h2>
                 <div className="w-24 h-1 bg-indigo-600 mx-auto rounded-full mt-4"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {[
                   {
-                    title: "Magnétiseur Zona & Brûlures",
-                    desc: "Soin d'urgence pour couper le feu. Action immédiate sur photo pour calmer l'inflammation et stopper la douleur.",
+                    title: "Coupeur de feu & Zona",
+                    desc: "Urgence zona et brûlures. Action immédiate sur photo par votre magnétiseur guérisseur pour stopper le feu et la douleur.",
                     icon: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
                   },
                   {
-                    title: "Guérisseur Eczéma & Peau",
-                    desc: "Traitement énergétique des problèmes de peau chroniques (eczéma, psoriasis, verrues) par rééquilibrage vibratoire.",
+                    title: "Peau : Eczéma & Psoriasis",
+                    desc: "Traitement des verrues et problèmes cutanés par magnétisme traditionnel. Une aide précieuse sur photo pour retrouver une peau saine.",
                     icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"
                   },
                   {
-                    title: "Soins Énergétiques & Stress",
-                    desc: "Libération des blocages émotionnels, fatigue chronique et harmonisation des chakras à distance.",
+                    title: "Énergies & Rééquilibrage",
+                    desc: "Harmonisation complète. Libérez-vous du stress et des blocages avec un accompagnement énergétique sérieux et bienveillant.",
                     icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707"
                   }
                 ].map((item, i) => (
@@ -123,7 +135,7 @@ const App: React.FC = () => {
               <div className="max-w-6xl mx-auto px-6">
                 <div className="text-center mb-16">
                   <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Vos Retours de Gratitude</h2>
-                  <p className="text-slate-500 mt-4 italic">Des témoignages authentiques pour des vies apaisées.</p>
+                  <p className="text-slate-500 mt-4 italic">Des témoignages authentiques après chaque soin sur photo.</p>
                   <div className="w-24 h-1 bg-indigo-600 mx-auto rounded-full mt-4"></div>
                 </div>
                 
@@ -147,7 +159,7 @@ const App: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-xs font-bold text-slate-800">{t.name}</p>
-                          <p className="text-[10px] text-slate-400 uppercase tracking-tighter">Soin sur photo • {t.city}</p>
+                          <p className="text-[10px] text-slate-400 uppercase tracking-tighter">Guérisseur Alençon • {t.city}</p>
                         </div>
                       </div>
                     </div>
@@ -156,7 +168,7 @@ const App: React.FC = () => {
                 
                 <div className="mt-16 text-center">
                    <button onClick={() => setActiveTab('healing')} className="text-indigo-600 font-bold hover:underline flex items-center gap-2 mx-auto">
-                     Laissez votre propre témoignage après votre séance
+                     Contactez votre magnétiseur pour un soin immédiat
                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                      </svg>
@@ -174,19 +186,19 @@ const App: React.FC = () => {
                 <div className="space-y-8 text-center lg:text-left">
                   <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
                     Une action <br />
-                    <span className="text-amber-400 italic">sans frontières.</span>
+                    <span className="text-amber-400 italic">sur toute la France.</span>
                   </h2>
                   <p className="text-slate-400 text-lg leading-relaxed">
-                    Mon magnétisme rayonne dans toute la France. La photo est le canal qui me permet de vous rejoindre, que vous soyez à Lille, Marseille ou dans un petit village de campagne.
+                    Mon magnétisme rayonne depuis l'Orne dans toute la France. La photo est le canal sacré qui me permet de vous rejoindre, que vous soyez à Paris, Marseille, Strasbourg ou dans un village reculé.
                   </p>
                   <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                     <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-3xl">
                       <p className="text-amber-400 font-bold text-2xl">98%</p>
-                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Satisfaction</p>
+                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Satisfaction Guérison</p>
                     </div>
                     <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-3xl">
                       <p className="text-indigo-400 font-bold text-2xl">24/7</p>
-                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Disponibilité Zona</p>
+                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Urgence Zona Alençon</p>
                     </div>
                   </div>
                 </div>
@@ -226,31 +238,31 @@ const App: React.FC = () => {
               </div>
             </section>
 
-            {/* FAQ SECTION */}
+            {/* FAQ SECTION Enrichie SEO */}
             <section className="bg-white py-24 border-y border-slate-100">
               <div className="max-w-4xl mx-auto px-6">
                 <div className="text-center mb-16 space-y-4">
-                  <h2 className="text-4xl font-serif font-bold text-slate-900">Questions fréquentes sur le magnétisme</h2>
-                  <p className="text-slate-500 italic">Tout comprendre sur les soins énergétiques à distance</p>
+                  <h2 className="text-4xl font-serif font-bold text-slate-900">Questions fréquentes sur le magnétisme sérieux</h2>
+                  <p className="text-slate-500 italic">Tout comprendre sur les soins énergétiques à Alençon et à distance</p>
                 </div>
                 
                 <div className="space-y-4">
                   {[
                     {
-                      q: "Comment fonctionne un magnétiseur à distance ?",
-                      a: "Le magnétisme ne dépend pas de la présence physique mais de l'intention et de la résonance vibratoire. À l'aide de votre photo, Jean-François agit sur votre corps éthérique pour dénouer les blocages énergétiques, exactement comme si vous étiez face à lui."
+                      q: "Où se situe votre cabinet de magnétiseur ?",
+                      a: "Jean-François est établi à Alençon, dans l'Orne (61). Bien qu'il reçoive localement, son expertise en magnétisme sur photo lui permet d'accompagner des patients dans toute la France avec la même rigueur et les mêmes résultats qu'en cabinet physique."
                     },
                     {
-                      q: "Le soin sur photo est-il efficace pour le zona ?",
-                      a: "Oui, c'est l'une des spécialités de Jean-François. En tant que coupeur de feu, il intervient sur photo pour stopper la douleur cuisante et limiter l'éruption cutanée dès les premiers symptômes."
+                      q: "Le magnétisme à distance est-il vraiment sérieux ?",
+                      a: "Oui, c'est une pratique millénaire reconnue pour son efficacité. En tant que magnétiseur à distance sérieux, Jean-François utilise votre photo comme un support vibratoire unique. Son professionnalisme et ses 20 ans d'expérience garantissent une prise en charge éthique et efficace de vos douleurs."
+                    },
+                    {
+                      q: "Comment fonctionne un coupeur de feu à distance ?",
+                      a: "Pour le zona ou les brûlures, l'action est immédiate. En transmettant son fluide énergétique via votre photo, le guérisseur stoppe la sensation de brûlure. C'est une méthode d'urgence pratiquée couramment en accompagnement de traitements médicaux."
                     },
                     {
                       q: "Quelles informations dois-je fournir pour une séance ?",
                       a: "Pour une efficacité maximale, Jean-François a besoin d'une photo récente de vous, de votre prénom, nom, date de naissance et d'une description précise de vos maux. Cela constitue votre 'signature vibratoire'."
-                    },
-                    {
-                      q: "Peut-on magnétiser un enfant ou un animal ?",
-                      a: "Absolument. Les enfants et les animaux sont souvent très réceptifs au magnétisme car ils n'ont pas de barrières mentales. Les soins sur photo fonctionnent parfaitement pour eux."
                     }
                   ].map((faq, i) => (
                     <details key={i} className="faq-details group bg-slate-50 rounded-3xl border border-transparent hover:border-indigo-100 transition-all">
