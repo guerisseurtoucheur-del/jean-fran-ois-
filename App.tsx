@@ -59,8 +59,8 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'chat': return <ChatRoom />;
-      case 'healing': return <HealingRequest onSuccess={() => setActiveTab('dashboard')} />;
+      case 'chat': return <ChatRoom onStartHealing={() => setActiveTab('healing')} />;
+      case 'healing': return <HealingRequest onSuccess={(session) => setActiveTab('dashboard')} />;
       case 'dashboard': return <Dashboard />;
       default:
         return (

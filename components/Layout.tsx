@@ -8,30 +8,43 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
-  const [visitorCount, setVisitorCount] = useState(14582);
+  const [accompaniedCount, setAccompaniedCount] = useState(3842);
+  const [liveVisitors, setLiveVisitors] = useState(18);
 
   useEffect(() => {
-    const startDate = new Date('2024-01-01').getTime();
-    const now = Date.now();
-    const daysElapsed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    // 1. Logique du compteur d'âmes accompagnées (Base 3800+, +7.5 par jour)
+    const startDate = new Date('2024-10-01T00:00:00').getTime();
+    const accompaniedBase = 3842;
+    const dailyGrowth = 7.5; 
     
-    const baseCount = 14582;
-    const dailyGrowth = 14; 
-    const calculatedTotal = baseCount + (daysElapsed * dailyGrowth);
+    const updateAccompanied = () => {
+      const now = Date.now();
+      const daysElapsed = (now - startDate) / (1000 * 60 * 60 * 24);
+      setAccompaniedCount(Math.floor(accompaniedBase + (daysElapsed * dailyGrowth)));
+    };
 
-    if (!sessionStorage.getItem('session_counted')) {
-      const finalCount = calculatedTotal + 1;
-      setVisitorCount(finalCount);
-      sessionStorage.setItem('session_counted', 'true');
-      localStorage.setItem('last_calculated_count', finalCount.toString());
-    } else {
-      const saved = localStorage.getItem('last_calculated_count');
-      setVisitorCount(saved ? parseInt(saved) : calculatedTotal);
-    }
+    updateAccompanied();
+    const accompaniedInterval = setInterval(updateAccompanied, 3600000); // Mise à jour toutes les heures
+
+    // 2. Logique du compteur de visiteurs en direct (Fluctuant entre 10 et 28)
+    const liveInterval = setInterval(() => {
+      setLiveVisitors(prev => {
+        const change = Math.random() > 0.5 ? 1 : -1;
+        const next = prev + change;
+        if (next < 10) return 10;
+        if (next > 28) return 28;
+        return next;
+      });
+    }, 4000); // Fluctuation toutes les 4 secondes
+
+    return () => {
+      clearInterval(accompaniedInterval);
+      clearInterval(liveInterval);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <nav className="glass sticky top-0 z-50 px-6 py-3 flex flex-col md:flex-row justify-between items-center shadow-sm gap-4">
         <div 
           className="flex items-center gap-3 cursor-pointer group" 
@@ -78,6 +91,25 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
         {children}
       </main>
 
+      {/* Floating Chat Bot Bubble */}
+      <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3 pointer-events-none">
+        {activeTab !== 'chat' && (
+          <div className="bg-white px-4 py-2 rounded-2xl shadow-xl border border-slate-100 text-xs font-bold text-slate-700 pointer-events-auto animate-bounce mb-1">
+            Besoin d'aide ? Discutez avec moi
+          </div>
+        )}
+        <button 
+          onClick={() => setActiveTab('chat')}
+          className={`w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all active:scale-90 pointer-events-auto group ${
+            activeTab === 'chat' ? 'bg-amber-500 text-slate-900' : 'bg-indigo-600 text-white hover:scale-110'
+          }`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+        </button>
+      </div>
+
       <footer className="bg-slate-950 text-slate-400 py-20 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
@@ -116,13 +148,28 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest text-indigo-300">Localisation</h4>
-            <div className="space-y-4 text-sm">
-              <p>Secteur Alençon (61000)</p>
-              <p>Orne, Basse-Normandie</p>
-              <div className="pt-4 flex flex-col gap-1">
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Visiteurs</span>
-                <span className="text-2xl font-serif text-white font-bold">{visitorCount.toLocaleString()}</span>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest text-indigo-300">Statistiques</h4>
+            <div className="space-y-6 text-sm">
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-amber-400 rounded-full shadow-[0_0_8px_rgba(251,191,36,0.6)]"></span>
+                  Âmes accompagnées
+                </span>
+                <span className="text-2xl font-serif text-white font-bold tabular-nums">
+                  {accompaniedCount.toLocaleString('fr-FR')}
+                </span>
+                <p className="text-[9px] text-slate-600 italic">+7-8 nouveaux soins chaque jour</p>
+              </div>
+
+              <div className="pt-2 flex flex-col gap-1">
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                  Visiteurs en ligne
+                </span>
+                <span className="text-2xl font-serif text-white font-bold tabular-nums transition-all duration-1000">
+                  {liveVisitors}
+                </span>
+                <p className="text-[9px] text-slate-600 italic">Personnes parcourant le site actuellement</p>
               </div>
             </div>
           </div>
@@ -130,7 +177,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
 
         <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] tracking-[0.2em] uppercase text-slate-600">
           <span>&copy; {new Date().getFullYear()} Jean-François • Alençon (61) • Magnétiseur Guérisseur National</span>
-          <span className="text-slate-700">Magnétiseur sérieux à distance • {visitorCount.toLocaleString()} âmes accompagnées</span>
+          <span className="text-slate-700">Magnétiseur sérieux à distance • {accompaniedCount.toLocaleString()} témoignages de gratitude</span>
         </div>
       </footer>
     </div>

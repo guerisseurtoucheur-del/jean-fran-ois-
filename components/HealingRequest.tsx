@@ -122,7 +122,7 @@ const HealingRequest: React.FC<HealingRequestProps> = ({ onSuccess }) => {
               </svg>
               Analyse en cours...
             </span>
-          ) : 'Analyser ma demande gratuitement'}
+          ) : 'Analyser ma demande'}
         </button>
       </form>
     </div>
