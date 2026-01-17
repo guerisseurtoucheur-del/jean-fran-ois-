@@ -11,7 +11,7 @@
     <meta name="keywords" content="magnétiseur, guérisseur, soin à distance, magnétisme sur photo, zona, eczéma, coupeur de feu, France, Alençon" />
     <link rel="canonical" href="https://jean-francois-magnetiseur.fr" />
 
-    <!-- Données Structurées FAQ (Invisible pour l'utilisateur, puissant pour SEO) -->
+    <!-- Données Structurées FAQ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -70,7 +70,7 @@
         transform: rotate(180deg);
       }
       
-      /* Animation de pulsation énergétique */
+      /* Animations énergétiques */
       @keyframes energy-vibration {
         0%, 100% {
           transform: scale(1);
@@ -88,16 +88,43 @@
         animation: energy-vibration 3.5s ease-in-out infinite;
         transform-origin: center;
       }
+
+      @keyframes map-dot-pulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); opacity: 0.8; }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); opacity: 1; }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); opacity: 0.8; }
+      }
+
+      .map-dot {
+        animation: map-dot-pulse 2s infinite;
+      }
+      
+      .city-label {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+      }
+      
+      .city-dot-container:hover .city-label {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .france-map-svg path {
+        transition: fill 0.3s ease;
+      }
+      .france-map-svg path:hover {
+        fill: #1e293b;
+      }
     </style>
   <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
-    "react-dom": "https://esm.sh/react-dom@^19.2.3",
-    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3/client",
     "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
 </script>
