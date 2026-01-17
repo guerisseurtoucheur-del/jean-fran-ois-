@@ -10,7 +10,7 @@ const App: React.FC = () => {
 
   const cities = [
     { name: "Paris", top: "25%", left: "48%", delay: "0s" },
-    { name: "Alençon", top: "28%", left: "35%", delay: "0.2s" },
+    { name: "Alençon", top: "28%", left: "35%", delay: "0.2s", isSource: true },
     { name: "Lyon", top: "58%", left: "68%", delay: "0.5s" },
     { name: "Marseille", top: "85%", left: "72%", delay: "0.8s" },
     { name: "Bordeaux", top: "68%", left: "32%", delay: "0.3s" },
@@ -18,11 +18,21 @@ const App: React.FC = () => {
     { name: "Strasbourg", top: "32%", left: "88%", delay: "1.4s" },
     { name: "Nantes", top: "42%", left: "22%", delay: "0.6s" },
     { name: "Toulouse", top: "82%", left: "45%", delay: "0.9s" },
-    { name: "Nice", top: "78%", left: "88%", delay: "1.2s" }
+    { name: "Nice", top: "78%", left: "88%", delay: "1.2s" },
+    { name: "Rennes", top: "35%", left: "15%", delay: "0.4s" },
+    { name: "Montpellier", top: "88%", left: "58%", delay: "0.7s" },
+    { name: "Reims", top: "22%", left: "62%", delay: "1.3s" },
+    { name: "Brest", top: "35%", left: "5%", delay: "1.5s" },
+    { name: "Biarritz", top: "88%", left: "20%", delay: "1.8s" },
+    { name: "Caen", top: "20%", left: "30%", delay: "0.1s" },
+    { name: "Grenoble", top: "68%", left: "78%", delay: "1.6s" },
+    { name: "Dijon", top: "45%", left: "72%", delay: "0.9s" },
+    { name: "Nancy", top: "28%", left: "80%", delay: "1.2s" },
+    { name: "Perpignan", top: "92%", left: "50%", delay: "1.0s" }
   ];
 
   const testimonials = [
-    { name: "Marie L.", city: "Lyon", text: "Jean-François a sauvé mon fils d'un zona très douloureux en seulement deux séances sur photo. La douleur a disparu dès la première nuit.", tag: "Zona" },
+    { name: "Marie L.", city: "Lyon", text: "Jean-François ha sauvé mon fils d'un zona très douloureux en seulement deux séances sur photo. La douleur a disparu dès la première nuit.", tag: "Zona" },
     { name: "Thomas B.", city: "Paris", text: "Souffrant d'eczéma depuis l'enfance, j'ai tout essayé. Après 3 semaines de suivi énergétique, ma peau est enfin saine.", tag: "Eczéma" },
     { name: "Sophie D.", city: "Bordeaux", text: "Une bienveillance rare. On ressent une chaleur apaisante même à distance. Mon stress a totalement disparu.", tag: "Anxiété" },
     { name: "Michel R.", city: "Alençon", text: "Excellent coupeur de feu. Suite à une brûlure grave, l'action de Jean-François a été instantanée. Pas de cicatrice !", tag: "Brûlure" },
@@ -65,7 +75,7 @@ const App: React.FC = () => {
       default:
         return (
           <div className="space-y-24 pb-24">
-            {/* Hero Section - Fixed Height Issue */}
+            {/* Hero Section */}
             <section className="relative min-h-[90vh] py-20 flex items-center overflow-hidden bg-slate-950">
               <div className="absolute inset-0 z-0 opacity-40">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-amber-500/20 rounded-full animate-[ping_10s_linear_infinite]"></div>
@@ -94,7 +104,6 @@ const App: React.FC = () => {
                     Le soin sur photo est une solution précieuse pour toutes les personnes qui ne peuvent pas se déplacer, que ce soit par manque de temps, handicap ou éloignement géographique, permettant de recevoir une aide sérieuse directement chez soi.
                   </p>
                 </div>
-                {/* Fixed visibility of buttons */}
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 pt-6">
                   <button 
                     onClick={() => setActiveTab('healing')} 
@@ -187,7 +196,7 @@ const App: React.FC = () => {
               </div>
             </section>
 
-            {/* FAQ Section - Magnétisme Sérieux */}
+            {/* FAQ Section */}
             <section className="max-w-4xl mx-auto px-6">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Questions Fréquentes</h2>
@@ -234,12 +243,18 @@ const App: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Map Grid */}
-                <div className="relative aspect-[1/1] bg-white/5 rounded-[3rem] p-8 md:p-12 border border-white/10 shadow-3xl overflow-hidden">
-                  <div className="absolute inset-0 p-8 flex items-center justify-center">
-                    {/* Simplified France SVG Base */}
-                    <svg className="france-map-svg w-full h-full text-slate-800/50" viewBox="0 0 100 100" fill="currentColor">
-                      <path d="M48,5 C55,8 60,12 65,15 C70,20 75,25 80,30 C85,35 90,40 92,45 C95,55 90,65 85,75 C80,85 70,90 60,95 C50,98 40,95 30,90 C20,85 10,75 5,65 C2,55 5,45 10,35 C15,25 25,15 35,10 C40,7 44,5 48,5 Z" />
+                {/* Realistic France Map Grid */}
+                <div className="relative aspect-[1/1] bg-white/5 rounded-[3rem] p-4 md:p-8 border border-white/10 shadow-3xl overflow-hidden group/map">
+                  <div className="absolute inset-0 p-4 flex items-center justify-center pointer-events-none">
+                    {/* Realistic France SVG Outline */}
+                    <svg 
+                      className="france-map-svg w-full h-full text-slate-800/60 drop-shadow-[0_0_20px_rgba(79,70,229,0.1)] transition-all duration-700 group-hover/map:text-slate-800/80" 
+                      viewBox="0 0 100 100" 
+                      fill="currentColor"
+                      stroke="rgba(255,255,255,0.05)"
+                      strokeWidth="0.5"
+                    >
+                      <path d="M30.4,4.2l3.4,4.8l2,0.6l2.1-1l3.3,1.6l0.2,4l3,2l2.3,4.4l2,1.2l3.7,0.3l1.8,2.7l1.7-0.3l1.8,2.1l3.5-0.1l0.6,2.2l4.8,2.6l1.2,5.2l2.5,1.5l0.1,5.6l2.1,0.6l0.2,3.3l4.5,4.7l-0.7,5.5l1.6,4l-0.5,3l-3.2,0.5l-0.8,3.2l-3.3,2.6l-3,3.7l-0.4,3.7l1,3.2l-1,3.4l-3.5,0.7l-1.5,1.6l-0.1,3.4l-4.7,4.3l0.2,3.5l-3,3.1l-2,4.4l-4.8,0.7l-1.8,3.3l-3.8-0.3l-5.4,3.1l-2.4-0.1l-4.4,4.8l-5.6-0.3l-3.4,2.7l-3.2-1.7l-1.4,1.8l-3.5-0.7l-3.4,2l-3,0.1l-1.3-4.6l-2.5,0.1l-1.6,3.4l-3.4-0.1l-4.7-4.2l-1.6-4.5l-4-1.3l-3,0.2l-3-2.6l-0.2-2.3l-2.5-1.5l-0.2-2.3l-3.2-2.5l-0.4-3.1l-3.3-2.1l0.2-2.2l-4.3-4.5l0.1-4.7l-1.6-4.1l0.5-3.3l1.5-1.3l0.3-4.5l-1.3-2.6l1.7-4.4l1-1.6l-0.2-3.4l1.6-4.5l1.5-1.7l3-0.5l1.6-3.4l4.6,0.1l2.4-4.8l2.2,0.3l1.7-1.8l3.1-0.2l1.6-2.5l3.2,1.3l2.6-2.5l4.3,0.5L30.4,4.2z" />
                     </svg>
                   </div>
                   
@@ -249,12 +264,18 @@ const App: React.FC = () => {
                       className="city-dot-container absolute z-30 cursor-pointer" 
                       style={{ top: city.top, left: city.left }}
                     >
+                      {/* Special Source Glow for Alençon */}
+                      {city.isSource && (
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-amber-500/20 rounded-full animate-pulse blur-md"></div>
+                      )}
+                      
                       <div 
-                        className="map-dot w-3 h-3 bg-amber-400 rounded-full shadow-[0_0_15px_rgba(251,191,36,0.8)]" 
+                        className={`map-dot rounded-full shadow-[0_0_15px_rgba(251,191,36,0.8)] ${city.isSource ? 'w-4 h-4 bg-amber-500' : 'w-2 h-2 bg-amber-400'}`} 
                         style={{ animationDelay: city.delay }}
                       ></div>
+                      
                       <div className="city-label absolute left-1/2 -translate-x-1/2 bottom-full mb-3 bg-white text-slate-900 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-2xl whitespace-nowrap">
-                        Soin effectué à {city.name}
+                        {city.isSource ? '📍 Alençon : Source des soins' : `Soin effectué à ${city.name}`}
                       </div>
                     </div>
                   ))}
