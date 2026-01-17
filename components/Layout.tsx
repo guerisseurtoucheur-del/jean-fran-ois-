@@ -167,11 +167,35 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           
           <div>
             <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest text-indigo-300">Soin à distance sérieux</h4>
-            <ul className="text-sm space-y-4">
+            <ul className="text-sm space-y-4 mb-10">
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Magnétiseur Orne (61)</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Guérisseur zona à distance</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Traitement eczéma sur photo</li>
             </ul>
+
+            <h4 className="text-white font-bold mb-4 text-[10px] uppercase tracking-widest text-slate-500">Zones d'intervention SEO</h4>
+            <div className="text-[10px] leading-relaxed text-slate-600 max-w-xs">
+              <p className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="hover:text-amber-500 transition-colors cursor-default">Paris</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Lyon</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Marseille</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Bordeaux</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Lille</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Nantes</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Strasbourg</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Toulouse</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Nice</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Montpellier</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Rennes</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Normandie</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Bretagne</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">PACA</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Grand Est</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Occitanie</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Hauts-de-France</span> • 
+                <span className="hover:text-amber-500 transition-colors cursor-default">Nouvelle-Aquitaine</span>
+              </p>
+            </div>
           </div>
 
           <div>
