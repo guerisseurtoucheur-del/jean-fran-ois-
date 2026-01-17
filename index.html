@@ -11,81 +11,6 @@
     <meta name="keywords" content="magnétiseur Alençon, magnétiseur Orne, soin sur photo France, magnétiseur à distance sérieux, guérisseur zona, coupeur de feu Normandie, magnétisme 61000" />
     <link rel="canonical" href="https://jean-francois-magnetiseur.fr" />
 
-    <!-- Données Structurées LocalBusiness (SEO Local) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Jean-François Magnétiseur Guérisseur",
-      "image": "https://jean-francois-magnetiseur.fr/logo.png",
-      "@id": "",
-      "url": "https://jean-francois-magnetiseur.fr",
-      "telephone": "0955554462",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Secteur Alençon",
-        "addressLocality": "Alençon",
-        "postalCode": "61000",
-        "addressRegion": "Normandie",
-        "addressCountry": "FR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 48.4300,
-        "longitude": 0.0900
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ],
-        "opens": "09:00",
-        "closes": "19:00"
-      },
-      "areaServed": [
-        {
-          "@type": "Country",
-          "name": "France"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Orne"
-        }
-      ]
-    }
-    </script>
-
-    <!-- Données Structurées FAQ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Comment se déroule un soin de magnétisme à distance ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Le soin à distance se pratique à partir d'une photo et de vos informations (nom, prénom, date de naissance). Jean-François se connecte à votre empreinte énergétique pour rééquilibrer vos flux et apaiser vos douleurs, avec la même efficacité qu'en cabinet."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Pourquoi choisir un magnétiseur à Alençon pour un soin à distance ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Jean-François est un magnétiseur établi à Alençon (Orne) bénéficiant de plus de 20 ans d'expérience. Son ancrage local garantit un suivi sérieux, tandis que sa pratique sur photo lui permet d'aider des personnes dans toute la France sans perte d'efficacité."
-          }
-        }
-      ]
-    }
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,22 +29,6 @@
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
-      .sr-only-seo {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-      }
-      .faq-details[open] summary svg {
-        transform: rotate(180deg);
-      }
-      
-      /* Animations énergétiques */
       @keyframes energy-vibration {
         0%, 100% {
           transform: scale(1);
@@ -152,6 +61,7 @@
         opacity: 0;
         transform: translateY(10px);
         transition: all 0.3s ease;
+        pointer-events: none;
       }
       
       .city-dot-container:hover .city-label {
@@ -162,22 +72,19 @@
       .france-map-svg path {
         transition: fill 0.3s ease;
       }
-      .france-map-svg path:hover {
-        fill: #1e293b;
-      }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom": "https://esm.sh/react-dom@^19.2.3/client",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
-  }
-}
-</script>
-</head>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom": "https://esm.sh/react-dom@^19.2.3/client",
+        "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+      }
+    }
+    </script>
+  </head>
   <body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>

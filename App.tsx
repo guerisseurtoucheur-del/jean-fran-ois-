@@ -28,75 +28,94 @@ const App: React.FC = () => {
     { name: "Michel R.", city: "Alençon", text: "Excellent coupeur de feu. Suite à une brûlure grave, l'action de Jean-François a été instantanée. Pas de cicatrice !", tag: "Brûlure" },
     { name: "Chloé M.", city: "Nantes", text: "Mes verrues plantaires, présentes depuis 2 ans, ont séché et sont tombées en 10 jours après l'envoi de la photo. Magique.", tag: "Verrues" },
     { name: "Jean P.", city: "Marseille", text: "J'étais sceptique sur le magnétisme à distance, mais les résultats sur mes douleurs de dos sont indiscutables.", tag: "Douleurs Dos" },
-    { name: "Valérie H.", city: "Lille", text: "Un grand merci pour votre aide lors de ma radiothérapie. Les effets secondaires ont été très limités grâce à vous.", tag: "Accompagnement" },
-    { name: "Lucas G.", city: "Toulouse", text: "Retrouvé un sommeil profond dès le premier soir. Jean-François dégage une force tranquille incroyable.", tag: "Sommeil" },
-    { name: "Isabelle K.", city: "Strasbourg", text: "Psoriasis stabilisé après des années de calvaire. Le suivi est sérieux et l'écoute est réelle.", tag: "Psoriasis" },
-    { name: "Franck V.", city: "Nice", text: "Une séance pour mon chien qui n'arrivait plus à marcher, il a retrouvé une vitalité surprenante en 48h.", tag: "Animaux" }
+    { name: "Isabelle G.", city: "Toulouse", text: "Une expérience transformative. Les douleurs articulaires qui me gâchaient la vie se sont estompées après seulement quelques jours de soin à distance.", tag: "Douleurs" },
+    { name: "Paul V.", city: "Lille", text: "Je recommande vivement Jean-François. Son calme et son expertise m'ont aidé à traverser une période de fatigue intense. Je me sens revitalisé.", tag: "Fatigue" },
+    { name: "Catherine B.", city: "Alençon", text: "Jean-François m'a beaucoup aidée pour mes migraines chroniques. Une présence rassurante et des résultats concrets.", tag: "Migraines" },
+    { name: "Marc A.", city: "Nice", text: "Soin sur photo très efficace pour mon psoriasis. Je revis enfin après des années de galère.", tag: "Psoriasis" }
+  ];
+
+  const faqs = [
+    {
+      q: "Qu'est-ce que le magnétisme sérieux ?",
+      a: "Le magnétisme sérieux est une pratique ancestrale basée sur la canalisation de l'énergie vitale pour soulager les maux physiques et émotionnels. Jean-François travaille avec humilité et bienveillance, sans jamais promettre de miracle, mais en agissant concrètement sur les flux énergétiques."
+    },
+    {
+      q: "Comment fonctionne le soin sur photo à distance ?",
+      a: "L'énergie ne connaît pas de barrière physique. La photo sert de support vibratoire (un témoin) permettant au magnétiseur de se connecter à votre empreinte énergétique unique, quel que soit l'endroit où vous vous trouvez en France."
+    },
+    {
+      q: "Est-ce que cela remplace un traitement médical ?",
+      a: "Absolument pas. Le magnétisme est une pratique complémentaire. Jean-François insiste sur le fait qu'il ne faut jamais arrêter un traitement médical en cours ni se substituer à l'avis d'un médecin. C'est un accompagnement énergétique pour favoriser la guérison."
+    },
+    {
+      q: "Pour quelles pathologies le magnétisme est-il efficace ?",
+      a: "Il est particulièrement reconnu pour les problèmes de peau (zona, eczéma, psoriasis, verrues), les brûlures (action de coupeur de feu), les douleurs articulaires, le stress intense et la fatigue chronique."
+    },
+    {
+      q: "Combien de temps dure un soin sur photo ?",
+      a: "L'action commence dès la réception de la photo et de la demande. Jean-François travaille généralement sur plusieurs jours pour stabiliser les énergies. Les premiers ressentis apparaissent souvent dans les 24h à 48h."
+    }
   ];
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'chat':
-        return <ChatRoom />;
-      case 'healing':
-        return <HealingRequest onSuccess={() => setActiveTab('dashboard')} />;
-      case 'dashboard':
-        return <Dashboard />;
+      case 'chat': return <ChatRoom />;
+      case 'healing': return <HealingRequest onSuccess={() => setActiveTab('dashboard')} />;
+      case 'dashboard': return <Dashboard />;
       default:
         return (
           <div className="space-y-24 pb-24">
-            {/* Hero Section */}
-            <section className="relative h-[90vh] flex items-center overflow-hidden bg-slate-950">
+            {/* Hero Section - Fixed Height Issue */}
+            <section className="relative min-h-[90vh] py-20 flex items-center overflow-hidden bg-slate-950">
               <div className="absolute inset-0 z-0 opacity-40">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-amber-500/20 rounded-full animate-[ping_10s_linear_infinite]"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-indigo-500/30 rounded-full animate-[ping_7s_linear_infinite]"></div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/80 to-indigo-950/40 z-10"></div>
-              <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-8">
+              
+              <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-6 md:space-y-8">
                 <div className="flex justify-center">
                   <div className="inline-flex items-center gap-2 px-5 py-2 bg-amber-500/20 backdrop-blur-xl rounded-full text-amber-300 text-xs font-bold tracking-[0.2em] border border-amber-500/30 uppercase">
                     Magnétiseur Alençon & France entière
                   </div>
                 </div>
-                <h1 className="text-5xl md:text-8xl font-serif font-bold leading-[0.9] drop-shadow-2xl">
+                <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold leading-[1.1] md:leading-[0.9] drop-shadow-2xl">
                   L'<span className="pulse-energy">énergie</span> n'a pas <br />
                   <span className="text-amber-400 italic">de distance.</span>
                 </h1>
-                <div className="space-y-4 max-w-2xl mx-auto">
-                  <p className="text-xl text-slate-300 leading-relaxed font-light">
+                <div className="space-y-4 md:space-y-6 max-w-3xl mx-auto">
+                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-light">
                     Jean-François, <span className="text-white font-bold">magnétiseur guérisseur à Alençon</span>, intervient <span className="text-white font-medium underline decoration-amber-500 underline-offset-4">sur photo</span> pour soulager vos maux partout en France.
                   </p>
-                  <p className="text-sm md:text-base text-slate-400 italic font-light opacity-90 leading-relaxed">
-                    "Nombreux sont ceux dont les souffrances entravent les déplacements ; sachez que ma pratique s'affranchit des contraintes physiques pour vous apporter soulagement et apaisement, précisément là où vous vous trouvez."
+                  <p className="text-base md:text-lg text-amber-200/90 font-serif italic max-w-2xl mx-auto">
+                    Magnétiseur reconnu à Alençon et partout en France, installé au cœur de la Normandie, Jean-François vous accompagne vers le mieux-être.
+                  </p>
+                  <p className="text-xs md:text-sm text-slate-400 italic max-w-2xl mx-auto leading-relaxed border-t border-white/10 pt-4">
+                    Le soin sur photo est une solution précieuse pour toutes les personnes qui ne peuvent pas se déplacer, que ce soit par manque de temps, handicap ou éloignement géographique, permettant de recevoir une aide sérieuse directement chez soi.
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-6 pt-6">
-                  <button onClick={() => setActiveTab('healing')} className="px-10 py-5 bg-amber-500 text-slate-950 rounded-full font-black text-lg shadow-2xl hover:scale-105 transition-all">
+                {/* Fixed visibility of buttons */}
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 pt-6">
+                  <button 
+                    onClick={() => setActiveTab('healing')} 
+                    className="w-full sm:w-auto px-10 py-5 bg-amber-500 text-slate-950 rounded-full font-black text-lg shadow-2xl hover:scale-105 transition-all active:scale-95"
+                  >
                     DÉMARRER UN SOIN SUR PHOTO
                   </button>
-                  <button onClick={() => setActiveTab('chat')} className="px-10 py-5 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-bold hover:bg-white/10 transition-all flex items-center gap-3">
+                  <button 
+                    onClick={() => setActiveTab('chat')} 
+                    className="w-full sm:w-auto px-10 py-5 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-3"
+                  >
                     Questions & Réponses
                   </button>
                 </div>
               </div>
             </section>
 
-            {/* SEO Section: Ancrage Géographique */}
-            <section className="max-w-4xl mx-auto px-6 text-center">
-              <h2 className="text-3xl font-serif font-bold text-slate-800 mb-6 uppercase tracking-widest">Magnétiseur reconnu à Alençon et partout en France</h2>
-              <div className="prose prose-slate mx-auto text-slate-500 leading-relaxed text-sm">
-                <p>
-                  Installé au cœur de la Normandie, Jean-François exerce en tant que <strong>magnétiseur à Alençon (61000)</strong> depuis plus de deux décennies. 
-                  Sa réputation de guérisseur sérieux s'étend aujourd'hui au-delà de l'Orne grâce à son expertise unique dans le <strong>soin à distance sur photo</strong>. 
-                  Que vous soyez à Paris, Lyon, Marseille ou dans le plus petit village de l'Hexagone, son énergie de guérison vous rejoint pour traiter vos pathologies cutanées (zona, eczéma) ou vos douleurs physiques chroniques.
-                </p>
-              </div>
-            </section>
-
             {/* Pathologies Section */}
             <section className="max-w-6xl mx-auto px-6">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Magnétisme à distance sérieux : Mon Expertise</h2>
+                <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Mon Expertise</h2>
                 <div className="w-24 h-1 bg-indigo-600 mx-auto rounded-full mt-4"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -159,28 +178,40 @@ const App: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-xs font-bold text-slate-800">{t.name}</p>
-                          <p className="text-[10px] text-slate-400 uppercase tracking-tighter">Guérisseur Alençon • {t.city}</p>
+                          <p className="text-[10px] text-slate-400 uppercase tracking-tighter">{t.city}</p>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                
-                <div className="mt-16 text-center">
-                   <button onClick={() => setActiveTab('healing')} className="text-indigo-600 font-bold hover:underline flex items-center gap-2 mx-auto">
-                     Contactez votre magnétiseur pour un soin immédiat
-                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                     </svg>
-                   </button>
-                </div>
+              </div>
+            </section>
+
+            {/* FAQ Section - Magnétisme Sérieux */}
+            <section className="max-w-4xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-serif font-bold text-slate-800 tracking-tight">Questions Fréquentes</h2>
+                <p className="text-slate-500 mt-2">Comprendre le magnétisme sérieux et ses bienfaits.</p>
+                <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full mt-4"></div>
+              </div>
+              <div className="space-y-6">
+                {faqs.map((faq, i) => (
+                  <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:border-amber-200 transition-all">
+                    <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-start gap-3">
+                      <span className="text-amber-500 font-serif text-2xl leading-none">?</span>
+                      {faq.q}
+                    </h3>
+                    <p className="text-slate-600 text-sm leading-relaxed ml-6">
+                      {faq.a}
+                    </p>
+                  </div>
+                ))}
               </div>
             </section>
 
             {/* Interactive Map Section */}
             <section className="bg-slate-900 py-32 overflow-hidden relative">
               <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px]"></div>
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/5 rounded-full blur-[100px]"></div>
               
               <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 items-center gap-20">
                 <div className="space-y-8 text-center lg:text-left">
@@ -189,30 +220,29 @@ const App: React.FC = () => {
                     <span className="text-amber-400 italic">sur toute la France.</span>
                   </h2>
                   <p className="text-slate-400 text-lg leading-relaxed">
-                    Mon magnétisme rayonne depuis l'Orne dans toute la France. La photo est le canal sacré qui me permet de vous rejoindre, que vous soyez à Paris, Marseille, Strasbourg ou dans un village reculé.
+                    Mon magnétisme rayonne depuis l'Orne dans toute la France. La photo est le canal qui me permet de vous rejoindre, que vous soyez à Paris, Marseille, Strasbourg ou dans un village reculé.
                   </p>
                   <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                     <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-3xl">
                       <p className="text-amber-400 font-bold text-2xl">98%</p>
-                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Satisfaction Guérison</p>
+                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Satisfaction</p>
                     </div>
                     <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-3xl">
                       <p className="text-indigo-400 font-bold text-2xl">24/7</p>
-                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Urgence Zona Alençon</p>
+                      <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Urgence Zona</p>
                     </div>
                   </div>
                 </div>
 
-                {/* The Map Component */}
-                <div className="relative aspect-[4/5] md:aspect-[1/1] bg-white/5 rounded-[3rem] p-12 border border-white/10 shadow-3xl">
-                  {/* Simplified France SVG Base */}
+                {/* Map Grid */}
+                <div className="relative aspect-[1/1] bg-white/5 rounded-[3rem] p-8 md:p-12 border border-white/10 shadow-3xl overflow-hidden">
                   <div className="absolute inset-0 p-8 flex items-center justify-center">
+                    {/* Simplified France SVG Base */}
                     <svg className="france-map-svg w-full h-full text-slate-800/50" viewBox="0 0 100 100" fill="currentColor">
                       <path d="M48,5 C55,8 60,12 65,15 C70,20 75,25 80,30 C85,35 90,40 92,45 C95,55 90,65 85,75 C80,85 70,90 60,95 C50,98 40,95 30,90 C20,85 10,75 5,65 C2,55 5,45 10,35 C15,25 25,15 35,10 C40,7 44,5 48,5 Z" />
                     </svg>
                   </div>
                   
-                  {/* Pulsing Dots */}
                   {cities.map((city, i) => (
                     <div 
                       key={i} 
@@ -227,55 +257,6 @@ const App: React.FC = () => {
                         Soin effectué à {city.name}
                       </div>
                     </div>
-                  ))}
-
-                  {/* Energy Lines Decoration */}
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="30" stroke="white" strokeWidth="0.1" fill="none" strokeDasharray="1 2" />
-                    <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="0.05" fill="none" />
-                  </svg>
-                </div>
-              </div>
-            </section>
-
-            {/* FAQ SECTION Enrichie SEO */}
-            <section className="bg-white py-24 border-y border-slate-100">
-              <div className="max-w-4xl mx-auto px-6">
-                <div className="text-center mb-16 space-y-4">
-                  <h2 className="text-4xl font-serif font-bold text-slate-900">Questions fréquentes sur le magnétisme sérieux</h2>
-                  <p className="text-slate-500 italic">Tout comprendre sur les soins énergétiques à Alençon et à distance</p>
-                </div>
-                
-                <div className="space-y-4">
-                  {[
-                    {
-                      q: "Où se situe votre cabinet de magnétiseur ?",
-                      a: "Jean-François est établi à Alençon, dans l'Orne (61). Bien qu'il reçoive localement, son expertise en magnétisme sur photo lui permet d'accompagner des patients dans toute la France avec la même rigueur et les mêmes résultats qu'en cabinet physique."
-                    },
-                    {
-                      q: "Le magnétisme à distance est-il vraiment sérieux ?",
-                      a: "Oui, c'est une pratique millénaire reconnue pour son efficacité. En tant que magnétiseur à distance sérieux, Jean-François utilise votre photo comme un support vibratoire unique. Son professionnalisme et ses 20 ans d'expérience garantissent une prise en charge éthique et efficace de vos douleurs."
-                    },
-                    {
-                      q: "Comment fonctionne un coupeur de feu à distance ?",
-                      a: "Pour le zona ou les brûlures, l'action est immédiate. En transmettant son fluide énergétique via votre photo, le guérisseur stoppe la sensation de brûlure. C'est une méthode d'urgence pratiquée couramment en accompagnement de traitements médicaux."
-                    },
-                    {
-                      q: "Quelles informations dois-je fournir pour une séance ?",
-                      a: "Pour une efficacité maximale, Jean-François a besoin d'une photo récente de vous, de votre prénom, nom, date de naissance et d'une description précise de vos maux. Cela constitue votre 'signature vibratoire'."
-                    }
-                  ].map((faq, i) => (
-                    <details key={i} className="faq-details group bg-slate-50 rounded-3xl border border-transparent hover:border-indigo-100 transition-all">
-                      <summary className="list-none p-8 cursor-pointer flex justify-between items-center font-bold text-slate-800 select-none">
-                        <span>{faq.q}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-indigo-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </summary>
-                      <div className="px-8 pb-8 text-slate-600 text-sm leading-relaxed">
-                        {faq.a}
-                      </div>
-                    </details>
                   ))}
                 </div>
               </div>

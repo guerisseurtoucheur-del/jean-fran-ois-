@@ -9,7 +9,6 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const [visitorCount, setVisitorCount] = useState(14582);
-  const [onlineCount, setOnlineCount] = useState(12);
 
   useEffect(() => {
     const startDate = new Date('2024-01-01').getTime();
@@ -29,16 +28,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       const saved = localStorage.getItem('last_calculated_count');
       setVisitorCount(saved ? parseInt(saved) : calculatedTotal);
     }
-
-    const interval = setInterval(() => {
-      setOnlineCount(prev => {
-        const change = Math.floor(Math.random() * 3) - 1;
-        const next = prev + change;
-        return next > 3 ? (next < 25 ? next : 24) : 4;
-      });
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -56,36 +45,21 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           <div className="flex flex-col">
             <h1 className="text-xl font-bold text-slate-800 leading-none mb-1">Jean-François</h1>
             <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold leading-none mb-1">Magnétiseur Alençon • France Entière</p>
-            <div className="flex items-center gap-3 mt-1">
-              <a 
-                href="tel:0955554462" 
-                className="text-[11px] text-indigo-600 font-bold hover:underline flex items-center gap-1"
-                onClick={(e) => e.stopPropagation()}
-              >
-                09.55.55.44.62
-              </a>
-            </div>
+            <a 
+              href="tel:0955554462" 
+              className="text-[11px] text-indigo-600 font-bold hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              09.55.55.44.62
+            </a>
           </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 px-4 py-2 bg-amber-50 rounded-2xl border border-amber-100 max-w-xl shadow-inner text-center">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-            </span>
-            <p className="text-[11px] md:text-xs text-amber-900 leading-tight">
-              Soin sur photo <span className="font-bold">disponible partout en France</span>.
-            </p>
-          </div>
-          <div className="hidden md:block w-px h-4 bg-amber-200"></div>
-          <p className="text-[10px] text-amber-700 font-medium">Cabinet Alençon & Distance</p>
         </div>
 
         <div className="flex items-center gap-6">
           <div className="hidden lg:flex gap-8">
             <button onClick={() => setActiveTab('home')} className={`text-sm font-bold tracking-tight transition-all ${activeTab === 'home' ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-500'}`}>ACCUEIL</button>
             <button onClick={() => setActiveTab('chat')} className={`text-sm font-bold tracking-tight transition-all ${activeTab === 'chat' ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-500'}`}>DISCUTER</button>
+            <button onClick={() => setActiveTab('dashboard')} className={`text-sm font-bold tracking-tight transition-all ${activeTab === 'dashboard' ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-500'}`}>SUIVI</button>
           </div>
           <button 
             onClick={() => setActiveTab('healing')} 
@@ -133,17 +107,16 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           </div>
           
           <div>
-            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Soin à distance sérieux</h4>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest text-indigo-300">Soin à distance sérieux</h4>
             <ul className="text-sm space-y-4">
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Magnétiseur Orne (61)</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Guérisseur zona à distance</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('healing')}>Traitement eczéma sur photo</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('dashboard')}>Suivi de ma séance</li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Localisation</h4>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest text-indigo-300">Localisation</h4>
             <div className="space-y-4 text-sm">
               <p>Secteur Alençon (61000)</p>
               <p>Orne, Basse-Normandie</p>
