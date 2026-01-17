@@ -16,6 +16,8 @@ export interface HealingSession {
   problemDescription: string;
   photoUrl: string | null;
   status: 'pending' | 'in_progress' | 'completed';
+  paymentStatus: 'unpaid' | 'paid' | 'pending';
+  price: number;
   energyLevel: number; // 0-100
   createdAt: number;
 }
