@@ -45,6 +45,33 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
 
   return (
     <div className="min-h-screen flex flex-col relative">
+      {/* Bandeau d'annonce supérieur (Header Top Bar) */}
+      <div className="bg-indigo-950 text-white py-2 px-6 overflow-hidden relative border-b border-white/5">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_5s_infinite] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+              </span>
+              Urgence Zona & Brûlures : Action prioritaire
+            </span>
+            <span className="hidden md:inline text-white/30">|</span>
+            <span className="hidden md:inline flex items-center gap-2 text-indigo-300">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" />
+              </svg>
+              Disponible 7j/7 sur photo
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+             <span className="hidden sm:inline">Ressenti vibratoire immédiat</span>
+             <a href="tel:0955554462" className="bg-white/10 px-3 py-1 rounded-full hover:bg-white/20 transition-colors">09.55.55.44.62</a>
+          </div>
+        </div>
+      </div>
+
       <nav className="glass sticky top-0 z-50 px-6 py-3 flex flex-col md:flex-row justify-between items-center shadow-sm gap-4">
         <div 
           className="flex items-center gap-3 cursor-pointer group" 

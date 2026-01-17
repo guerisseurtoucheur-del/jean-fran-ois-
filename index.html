@@ -53,6 +53,12 @@
         100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); opacity: 0.8; }
       }
 
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        20% { transform: translateX(100%); }
+        100% { transform: translateX(100%); }
+      }
+
       .map-dot {
         animation: map-dot-pulse 2s infinite;
       }
