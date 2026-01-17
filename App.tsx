@@ -283,7 +283,7 @@ const App: React.FC = () => {
               </div>
             </section>
 
-            {/* SEO Textual Content Section */}
+            {/* SEO Textual Content Section - Deep Optimization */}
             <section className="bg-slate-50 py-24 border-t border-slate-200">
               <div className="max-w-6xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
