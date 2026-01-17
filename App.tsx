@@ -52,7 +52,7 @@ const App: React.FC = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-indigo-500/30 rounded-full animate-[ping_7s_linear_infinite]"></div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/80 to-indigo-950/40 z-10"></div>
-              <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-10">
+              <div className="relative z-20 max-w-6xl mx-auto px-6 text-white text-center space-y-8">
                 <div className="flex justify-center">
                   <div className="inline-flex items-center gap-2 px-5 py-2 bg-amber-500/20 backdrop-blur-xl rounded-full text-amber-300 text-xs font-bold tracking-[0.2em] border border-amber-500/30 uppercase">
                     Efficacité garantie partout en France
@@ -62,9 +62,14 @@ const App: React.FC = () => {
                   L'<span className="pulse-energy">énergie</span> n'a pas <br />
                   <span className="text-amber-400 italic">de distance.</span>
                 </h1>
-                <p className="max-w-2xl mx-auto text-xl text-slate-300 leading-relaxed font-light">
-                  Jean-François, magnétiseur guérisseur, intervient <span className="text-white font-medium underline decoration-amber-500 underline-offset-4">sur photo</span> pour soulager vos maux partout en France.
-                </p>
+                <div className="space-y-4 max-w-2xl mx-auto">
+                  <p className="text-xl text-slate-300 leading-relaxed font-light">
+                    Jean-François, magnétiseur guérisseur, intervient <span className="text-white font-medium underline decoration-amber-500 underline-offset-4">sur photo</span> pour soulager vos maux partout en France.
+                  </p>
+                  <p className="text-sm md:text-base text-slate-400 italic font-light opacity-90 leading-relaxed">
+                    "Nombreux sont ceux dont les souffrances entravent les déplacements ; sachez que ma pratique s'affranchit des contraintes physiques pour vous apporter soulagement et apaisement, précisément là où vous vous trouvez."
+                  </p>
+                </div>
                 <div className="flex flex-wrap justify-center gap-6 pt-6">
                   <button onClick={() => setActiveTab('healing')} className="px-10 py-5 bg-amber-500 text-slate-950 rounded-full font-black text-lg shadow-2xl hover:scale-105 transition-all">
                     DÉMARRER UN SOIN SUR PHOTO
@@ -113,7 +118,7 @@ const App: React.FC = () => {
               </div>
             </section>
 
-            {/* Testimonials Section - NEW */}
+            {/* Testimonials Section */}
             <section className="bg-indigo-50 py-24">
               <div className="max-w-6xl mx-auto px-6">
                 <div className="text-center mb-16">
