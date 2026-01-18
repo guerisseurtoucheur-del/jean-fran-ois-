@@ -1,72 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jean-François | Magnétiseur Alençon (61) & Soins sur Photo France entière</title>
+    <title>Jean-François | Magnétiseur Alençon (61) & Soins sur Photo France</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Jean-François, magnétiseur guérisseur à Alençon (Orne). Spécialiste reconnu en soins à distance sur photo partout en France. Magnétisme sérieux pour zona, eczéma et douleurs." />
-    <meta name="keywords" content="magnétiseur Alençon, magnétiseur Orne, soin sur photo France, magnétiseur à distance sérieux, guérisseur zona, coupeur de feu Normandie, magnétisme 61000" />
+    <!-- SEO Meta Tags - Utilisation du Punycode pour la compatibilité totale -->
+    <meta name="description" content="Jean-François, magnétiseur guérisseur à Alençon. Spécialiste reconnu en soins à distance sur photo. Aide pour zona, eczéma, douleurs et stress." />
+    <meta name="keywords" content="magnétiseur Alençon, guérisseur Orne, soin sur photo France, magnétiseur sérieux, zona, eczéma, coupeur de feu" />
     <link rel="canonical" href="https://xn--gurisseur-96a.com" />
-
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Jean-François Magnétiseur Guérisseur",
-      "description": "Magnétiseur professionnel à Alençon spécialisé dans les soins sur photo à distance pour zona, brûlures, eczéma et rééquilibrage énergétique.",
-      "image": "https://xn--gurisseur-96a.com/logo.png",
-      "@id": "https://xn--gurisseur-96a.com",
-      "url": "https://xn--gurisseur-96a.com",
-      "telephone": "0955554462",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Alençon",
-        "addressLocality": "Alençon",
-        "postalCode": "61000",
-        "addressRegion": "Normandie",
-        "addressCountry": "FR"
-      }
-    }
-    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+      :root {
+        --primary: #4f46e5;
+        --secondary: #f59e0b;
+      }
+      body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: #fdfdfc;
+        color: #1c1917;
+      }
       h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; }
-      .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
-      @keyframes energy-vibration {
-        0%, 100% { transform: scale(1); filter: brightness(1); }
-        50% { transform: scale(1.04); filter: brightness(1.2); text-shadow: 0 0 25px rgba(251, 191, 36, 0.6); }
+      
+      .glass-nav { 
+        background: rgba(255, 255, 255, 0.8); 
+        backdrop-filter: blur(15px); 
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       }
-      .pulse-energy { display: inline-block; animation: energy-vibration 3.5s ease-in-out infinite; }
-      @keyframes shimmer { 0% { transform: translateX(-100%); } 20%, 100% { transform: translateX(100%); } }
-      @keyframes map-dot-pulse {
-        0% { transform: scale(0.95); opacity: 0.8; }
-        70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
-        100% { transform: scale(0.95); opacity: 0.8; }
+
+      .btn-glow {
+        box-shadow: 0 0 20px rgba(79, 70, 229, 0.2);
       }
-      .map-dot { animation: map-dot-pulse 2s infinite; }
+      .btn-glow:hover {
+        box-shadow: 0 0 30px rgba(79, 70, 229, 0.4);
+      }
+
+      @keyframes energy-breath {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.1); }
+      }
+      .energy-field {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        animation: energy-breath 8s ease-in-out infinite;
+      }
+
+      /* Transitions douces entre les pages */
+      .page-fade {
+        animation: fadeIn 0.5s ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
     </style>
     <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom": "https://esm.sh/react-dom@^19.2.3/client",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
-}
-</script>
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom": "https://esm.sh/react-dom@^19.2.3/client",
+        "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/"
+      }
+    }
+    </script>
   </head>
-  <body class="bg-slate-50 text-slate-900">
+  <body class="antialiased">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
   </body>

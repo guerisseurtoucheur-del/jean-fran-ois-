@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { chatStreamWithJeanFrancois } from '../services/geminiService';
 import { Message } from '../types';
@@ -11,7 +10,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Bonjour, c'est Jean-François. Je suis heureux de vous accueillir ici. Prenez le temps de me dire ce qui vous pèse ou ce que vous souhaiteriez apaiser. Je suis à votre écoute.",
+      text: "Bonjour, je suis Jean-François. Que ce soit pour un zona, un eczéma qui vous fait souffrir, ou simplement pour retrouver un peu d'énergie, je suis là pour vous écouter. Que puis-je faire pour vous ?",
       sender: 'healer',
       timestamp: Date.now()
     }
@@ -21,10 +20,10 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const suggestions = [
-    "J'ai un zona très douloureux...",
-    "Comment fonctionne le soin sur photo ?",
-    "Pouvez-vous m'aider pour mon eczéma ?",
-    "Je me sens très fatigué en ce moment."
+    "J'ai un zona très douloureux",
+    "Est-ce que vous aidez pour l'eczéma ?",
+    "Comment envoyer ma photo ?",
+    "Quels sont vos tarifs ?"
   ];
 
   useEffect(() => {
@@ -66,120 +65,96 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
     }
   };
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSend(input);
-  };
-
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-6 h-[80vh] flex flex-col">
-      <div className="bg-white flex-grow flex flex-col rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden relative">
-        {/* En-tête du Chat */}
-        <div className="bg-indigo-600 p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 z-10">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="w-12 h-12 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center font-bold text-xl border-2 border-white/20 shadow-inner">JF</div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-indigo-600 rounded-full animate-pulse"></div>
-            </div>
-            <div>
-              <h2 className="font-serif font-bold text-lg leading-none">Jean-François</h2>
-              <p className="text-[10px] text-indigo-100 uppercase tracking-widest mt-1 flex items-center gap-2">
-                <span className="inline-block w-1 h-1 bg-green-400 rounded-full animate-ping"></span>
-                En ligne • Écoute bienveillante
-              </p>
+    <div className="max-w-5xl mx-auto p-4 md:p-10 h-[85vh] flex flex-col">
+      <div className="bg-white flex-grow flex flex-col md:flex-row rounded-[2.5rem] shadow-2xl border border-stone-100 overflow-hidden">
+        
+        {/* Barre latérale d'infos */}
+        <div className="w-full md:w-72 bg-stone-50 p-8 border-b md:border-b-0 md:border-r border-stone-100 space-y-8 hidden md:block">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">Votre Magnétiseur</h3>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-serif italic text-xl">JF</div>
+              <div>
+                <p className="font-bold text-stone-800">Jean-François</p>
+                <p className="text-[10px] text-green-500 font-bold uppercase tracking-tighter">Disponible maintenant</p>
+              </div>
             </div>
           </div>
           
-          {onStartHealing && (
+          <div className="space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400">Conseils</h3>
+            <div className="text-sm text-stone-500 leading-relaxed italic">
+              "Prenez quelques grandes inspirations avant de m'écrire. Le calme est le premier pas vers le soulagement."
+            </div>
+          </div>
+
+          <div className="pt-4">
             <button 
               onClick={onStartHealing}
-              className="bg-amber-500 hover:bg-amber-400 text-slate-900 px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-lg transition-all active:scale-95 flex items-center gap-2"
+              className="w-full p-4 bg-amber-500 hover:bg-amber-600 text-stone-900 rounded-2xl font-black text-[11px] uppercase tracking-widest shadow-lg shadow-amber-100 transition-all"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-              </svg>
-              Démarrer mon soin sur photo
+              Envoyer une photo
             </button>
-          )}
+          </div>
         </div>
 
-        {/* Zone des messages */}
-        <div 
-          ref={scrollRef}
-          className="flex-grow overflow-y-auto p-6 space-y-6 bg-slate-50/50"
-        >
-          {messages.map(msg => (
-            <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
-              <div className={`max-w-[85%] p-5 rounded-3xl text-sm leading-relaxed shadow-sm transition-all ${
-                msg.sender === 'user' 
-                ? 'bg-indigo-600 text-white rounded-tr-none' 
-                : 'bg-white text-slate-700 rounded-tl-none border border-slate-100 border-l-4 border-l-amber-400'
-              }`}>
-                {msg.text || (isTyping && msg.sender === 'healer' ? '...' : '')}
-                
-                {msg.sender === 'healer' && !isTyping && msg.id !== '1' && msg.text.length > 50 && (
-                  <div className="mt-4 pt-4 border-t border-slate-50 flex flex-col items-center gap-2">
-                    <p className="text-[9px] text-slate-400 uppercase font-bold tracking-tighter">Besoin d'un soin urgent ?</p>
-                    <button 
-                      onClick={onStartHealing}
-                      className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-100 transition-colors"
-                    >
-                      M'envoyer votre photo ici
-                    </button>
-                  </div>
-                )}
+        {/* Zone de Chat principale */}
+        <div className="flex-grow flex flex-col relative bg-white">
+          <div className="flex-grow overflow-y-auto p-6 md:p-10 space-y-8" ref={scrollRef}>
+            {messages.map(msg => (
+              <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
+                <div className={`max-w-[90%] md:max-w-[75%] p-6 rounded-3xl text-base leading-relaxed ${
+                  msg.sender === 'user' 
+                  ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-tr-none' 
+                  : 'bg-stone-50 text-stone-700 rounded-tl-none border border-stone-100'
+                }`}>
+                  {msg.text || (isTyping && msg.sender === 'healer' ? <div className="flex gap-1"><span className="w-1.5 h-1.5 bg-stone-400 rounded-full animate-bounce"></span><span className="w-1.5 h-1.5 bg-stone-400 rounded-full animate-bounce delay-75"></span><span className="w-1.5 h-1.5 bg-stone-400 rounded-full animate-bounce delay-150"></span></div> : '')}
+                </div>
               </div>
-            </div>
-          ))}
-          {isTyping && messages[messages.length-1].text === '' && (
-            <div className="flex gap-2 items-center text-xs text-slate-400 font-medium italic ml-2">
-              <span className="flex gap-1">
-                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce"></span>
-                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce delay-75"></span>
-                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce delay-150"></span>
-              </span>
-              Jean-François vous répond...
-            </div>
-          )}
-        </div>
-
-        {/* Suggestions de questions rapides */}
-        {messages.length < 3 && !isTyping && (
-          <div className="px-6 py-2 flex flex-wrap gap-2 bg-white">
-            {suggestions.map((s, i) => (
-              <button 
-                key={i} 
-                onClick={() => handleSend(s)}
-                className="text-[10px] bg-slate-100 hover:bg-amber-100 hover:text-amber-800 text-slate-600 px-3 py-1.5 rounded-full transition-all border border-slate-200 font-medium"
-              >
-                {s}
-              </button>
             ))}
           </div>
-        )}
 
-        {/* Formulaire d'envoi */}
-        <form onSubmit={onSubmit} className="p-4 bg-white border-t border-slate-100">
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Écrivez ici votre message pour Jean-François..."
-              className="flex-grow bg-slate-50 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all border border-slate-100"
-            />
-            <button 
-              type="submit"
-              disabled={!input.trim() || isTyping}
-              className="bg-indigo-600 text-white p-4 rounded-2xl shadow-lg hover:bg-indigo-700 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 rotate-90" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-              </svg>
-            </button>
-          </div>
-          <p className="text-center text-[8px] text-slate-300 mt-2 uppercase tracking-[0.2em] font-bold">Jean-François répond généralement en quelques secondes</p>
-        </form>
+          {/* Suggestions flottantes */}
+          {!isTyping && messages.length < 3 && (
+            <div className="px-6 md:px-10 py-4 flex flex-wrap gap-2">
+              {suggestions.map((s, i) => (
+                <button 
+                  key={i} 
+                  onClick={() => handleSend(s)}
+                  className="px-4 py-2 bg-stone-100 hover:bg-indigo-50 hover:text-indigo-600 text-stone-500 rounded-full text-xs font-medium transition-all border border-transparent hover:border-indigo-100"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Formulaire */}
+          <form 
+            onSubmit={(e) => { e.preventDefault(); handleSend(input); }}
+            className="p-6 md:p-10 pt-0"
+          >
+            <div className="relative group">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Racontez-moi ce qui vous arrive..."
+                className="w-full bg-stone-50 rounded-[2rem] px-8 py-6 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all border border-stone-100 pr-20"
+              />
+              <button 
+                type="submit"
+                disabled={!input.trim() || isTyping}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-700 active:scale-95 transition-all disabled:opacity-30"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
