@@ -18,12 +18,6 @@ export interface HealingSession {
   status: 'pending' | 'in_progress' | 'completed';
   paymentStatus: 'unpaid' | 'paid' | 'pending';
   price: number;
-  energyLevel: number; // 0-100
+  energyLevel: number;
   createdAt: number;
-}
-
-export interface UserContext {
-  name: string;
-  email: string;
-  isAuthenticated: boolean;
 }

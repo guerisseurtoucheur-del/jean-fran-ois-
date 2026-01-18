@@ -11,7 +11,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Bonjour, c'est Jean-François. Je suis heureux de vous accueillir ici. Prenez le temps de me dire ce qui vous pèse ou ce que vous souhaiteriez apaiser...",
+      text: "Bonjour, c'est Jean-François. Je suis heureux de vous accueillir ici. Prenez le temps de me dire ce qui vous pèse ou ce que vous souhaiteriez apaiser. Je suis à votre écoute.",
       sender: 'healer',
       timestamp: Date.now()
     }
@@ -20,17 +20,29 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const suggestions = [
+    "J'ai un zona très douloureux...",
+    "Comment fonctionne le soin sur photo ?",
+    "Pouvez-vous m'aider pour mon eczéma ?",
+    "Je me sens très fatigué en ce moment."
+  ];
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isTyping]);
 
-  const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isTyping) return;
+  const handleSend = async (textToSend: string) => {
+    if (!textToSend.trim() || isTyping) return;
 
-    const userMessage: Message = { id: Date.now().toString(), text: input, sender: 'user', timestamp: Date.now() };
+    const userMessage: Message = { 
+      id: Date.now().toString(), 
+      text: textToSend, 
+      sender: 'user', 
+      timestamp: Date.now() 
+    };
+    
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
@@ -41,7 +53,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
 
     let fullResponse = '';
     try {
-      await chatStreamWithJeanFrancois(input, (chunk) => {
+      await chatStreamWithJeanFrancois(textToSend, (chunk) => {
         fullResponse += chunk;
         setMessages(prev => prev.map(msg => 
           msg.id === botMessageId ? { ...msg, text: fullResponse } : msg
@@ -54,15 +66,27 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
     }
   };
 
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSend(input);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-6 h-[75vh] md:h-[80vh] flex flex-col">
-      <div className="bg-white flex-grow flex flex-col rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
-        <div className="bg-indigo-600 p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div className="max-w-4xl mx-auto p-4 md:p-6 h-[80vh] flex flex-col">
+      <div className="bg-white flex-grow flex flex-col rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden relative">
+        {/* En-tête du Chat */}
+        <div className="bg-indigo-600 p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 z-10">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center font-bold text-xl border-2 border-white/20 shadow-inner">JF</div>
+            <div className="relative">
+              <div className="w-12 h-12 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center font-bold text-xl border-2 border-white/20 shadow-inner">JF</div>
+              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-indigo-600 rounded-full animate-pulse"></div>
+            </div>
             <div>
               <h2 className="font-serif font-bold text-lg leading-none">Jean-François</h2>
-              <p className="text-[10px] text-indigo-100 uppercase tracking-widest mt-1">Magnétiseur • Votre écoute bienveillante</p>
+              <p className="text-[10px] text-indigo-100 uppercase tracking-widest mt-1 flex items-center gap-2">
+                <span className="inline-block w-1 h-1 bg-green-400 rounded-full animate-ping"></span>
+                En ligne • Écoute bienveillante
+              </p>
             </div>
           </div>
           
@@ -79,25 +103,28 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
           )}
         </div>
 
+        {/* Zone des messages */}
         <div 
           ref={scrollRef}
           className="flex-grow overflow-y-auto p-6 space-y-6 bg-slate-50/50"
         >
           {messages.map(msg => (
-            <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[85%] p-5 rounded-3xl text-sm leading-relaxed shadow-sm ${
+            <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
+              <div className={`max-w-[85%] p-5 rounded-3xl text-sm leading-relaxed shadow-sm transition-all ${
                 msg.sender === 'user' 
                 ? 'bg-indigo-600 text-white rounded-tr-none' 
                 : 'bg-white text-slate-700 rounded-tl-none border border-slate-100 border-l-4 border-l-amber-400'
               }`}>
                 {msg.text || (isTyping && msg.sender === 'healer' ? '...' : '')}
+                
                 {msg.sender === 'healer' && !isTyping && msg.id !== '1' && msg.text.length > 50 && (
-                  <div className="mt-4 pt-4 border-t border-slate-50 flex justify-center">
+                  <div className="mt-4 pt-4 border-t border-slate-50 flex flex-col items-center gap-2">
+                    <p className="text-[9px] text-slate-400 uppercase font-bold tracking-tighter">Besoin d'un soin urgent ?</p>
                     <button 
                       onClick={onStartHealing}
-                      className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest hover:underline"
+                      className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-100 transition-colors"
                     >
-                      Cliquer ici pour m'envoyer votre photo
+                      M'envoyer votre photo ici
                     </button>
                   </div>
                 )}
@@ -116,13 +143,29 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
           )}
         </div>
 
-        <form onSubmit={handleSend} className="p-4 bg-white border-t border-slate-100">
+        {/* Suggestions de questions rapides */}
+        {messages.length < 3 && !isTyping && (
+          <div className="px-6 py-2 flex flex-wrap gap-2 bg-white">
+            {suggestions.map((s, i) => (
+              <button 
+                key={i} 
+                onClick={() => handleSend(s)}
+                className="text-[10px] bg-slate-100 hover:bg-amber-100 hover:text-amber-800 text-slate-600 px-3 py-1.5 rounded-full transition-all border border-slate-200 font-medium"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Formulaire d'envoi */}
+        <form onSubmit={onSubmit} className="p-4 bg-white border-t border-slate-100">
           <div className="flex gap-3">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Posez votre question à Jean-François..."
+              placeholder="Écrivez ici votre message pour Jean-François..."
               className="flex-grow bg-slate-50 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all border border-slate-100"
             />
             <button 
@@ -135,6 +178,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onStartHealing }) => {
               </svg>
             </button>
           </div>
+          <p className="text-center text-[8px] text-slate-300 mt-2 uppercase tracking-[0.2em] font-bold">Jean-François répond généralement en quelques secondes</p>
         </form>
       </div>
     </div>
